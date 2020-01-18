@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public GameObject cannonballPrefab;
+    public Transform poleModel;
 
     Player player;
     Rigidbody rb;
@@ -25,8 +26,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-
-        
 
         float ySpeed = rb.velocity.y;
 

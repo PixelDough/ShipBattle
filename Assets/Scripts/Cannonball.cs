@@ -13,8 +13,14 @@ public class Cannonball : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        FindObjectOfType<ScreenShake>().Shake();
         StartCoroutine(CannonLife());
+    }
+
+
+    private void Update()
+    {
+        if (transform.position.y < -2f) Destroy(this.gameObject);
     }
 
 
@@ -46,9 +52,18 @@ public class Cannonball : MonoBehaviour
             {
                 return;
             }
+
+            if (other.attachedRigidbody.GetComponent<WaterToy>())
+            {
+                other.attachedRigidbody.GetComponent<WaterToy>().Explode();
+            }
+
         }
+
+        
+
         Debug.Log(other.name);
-        Destroy(this.gameObject);
+        GetComponent<WaterToy>().Explode();
         
     }
 

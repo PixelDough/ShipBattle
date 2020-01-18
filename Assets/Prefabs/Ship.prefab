@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInWater: 0
+  explodeOnCollision: 1
 --- !u!1 &4355277411025084782
 GameObject:
   m_ObjectHideFlags: 0

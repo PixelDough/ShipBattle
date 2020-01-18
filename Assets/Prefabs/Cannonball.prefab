@@ -64,6 +64,7 @@ GameObject:
   - component: {fileID: 3182077760335596987}
   - component: {fileID: 3436680670127390616}
   - component: {fileID: 869504308203747861}
+  - component: {fileID: 1017478115663337855}
   m_Layer: 0
   m_Name: Cannonball
   m_TagString: Untagged
@@ -116,6 +117,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creator: {fileID: 0}
+--- !u!114 &1017478115663337855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4463692303796416709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e861f550968081479b9f95480438fb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInWater: 0
+  floatOnWater: 0
+  explodeOnCollision: 1
 --- !u!1001 &373919868465071821
 PrefabInstance:
   m_ObjectHideFlags: 0
