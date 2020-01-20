@@ -6,8 +6,6 @@ using UnityEngine;
 public class Cannonball : MonoBehaviour
 {
 
-    public GameObject creator;
-
     private Rigidbody rb;
 
     private void Start()
@@ -20,7 +18,7 @@ public class Cannonball : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y < -2f) Destroy(this.gameObject);
+        if (transform.position.y < -2f) Destroy(gameObject, 3f);
     }
 
 
@@ -43,28 +41,22 @@ public class Cannonball : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
+    //private void OnTriggerEnter(Collider other)
+    //{
 
-        if (other.attachedRigidbody)
-        {
-            if (other.attachedRigidbody.gameObject == creator)
-            {
-                return;
-            }
+    //    if (other.attachedRigidbody)
+    //    {
+            
 
-            if (other.attachedRigidbody.GetComponent<WaterToy>())
-            {
-                other.attachedRigidbody.GetComponent<WaterToy>().Explode();
-            }
+    //        if (other.attachedRigidbody.GetComponent<WaterToy>())
+    //        {
+    //            other.attachedRigidbody.GetComponent<WaterToy>().Explode();
+    //        }
 
-        }
+    //    }
 
+    //    GetComponent<WaterToy>().Explode();
         
-
-        Debug.Log(other.name);
-        GetComponent<WaterToy>().Explode();
-        
-    }
+    //}
 
 }

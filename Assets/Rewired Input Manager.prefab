@@ -127,7 +127,7 @@ MonoBehaviour:
         ignoreInputWhenAppNotInFocus: 1
       maxJoysticksPerPlayer: 1
       autoAssignJoysticks: 1
-      assignJoysticksToPlayingPlayersOnly: 0
+      assignJoysticksToPlayingPlayersOnly: 1
       distributeJoysticksEvenly: 1
       reassignJoystickToPreviousOwnerOnReconnect: 1
       defaultJoystickAxis2DDeadZoneType: 1
@@ -215,7 +215,7 @@ MonoBehaviour:
     - _id: 2
       _name: Player2
       _descriptiveName: Player 2
-      _startPlaying: 0
+      _startPlaying: 1
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -243,7 +243,7 @@ MonoBehaviour:
     - _id: 3
       _name: Player3
       _descriptiveName: Player 3
-      _startPlaying: 0
+      _startPlaying: 1
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -271,7 +271,7 @@ MonoBehaviour:
     - _id: 4
       _name: Player4
       _descriptiveName: Player 4
-      _startPlaying: 0
+      _startPlaying: 1
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -342,6 +342,15 @@ MonoBehaviour:
       _behaviorId: 0
       _userAssignable: 1
       _categoryId: 2
+    - _id: 6
+      _name: Bomb
+      _type: 1
+      _descriptiveName: Throw Bomb
+      _positiveDescriptiveName: 
+      _negativeDescriptiveName: 
+      _behaviorId: 0
+      _userAssignable: 1
+      _categoryId: 1
     actionCategories:
     - _name: Default
       _descriptiveName: Default
@@ -363,7 +372,7 @@ MonoBehaviour:
       - categoryId: 0
         actionIds: 00000000
       - categoryId: 1
-        actionIds: 0100000002000000
+        actionIds: 010000000200000006000000
       - categoryId: 2
         actionIds: 0500000004000000
     inputBehaviors:
@@ -543,6 +552,17 @@ MonoBehaviour:
         _modifierKey1: 0
         _modifierKey2: 0
         _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 6
+        _elementType: 1
+        _elementIdentifierId: 4
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
     keyboardMaps:
     - id: 0
       categoryId: 0
@@ -639,6 +659,17 @@ MonoBehaviour:
         _modifierKey1: 0
         _modifierKey2: 0
         _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 6
+        _elementType: 1
+        _elementIdentifierId: -1
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 113
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
     mouseMaps:
     - id: 0
       categoryId: 0
@@ -674,7 +705,7 @@ MonoBehaviour:
     controllerMapLayoutManagerRuleSets: []
     controllerMapEnablerRuleSets: []
     playerIdCounter: 5
-    actionIdCounter: 6
+    actionIdCounter: 7
     actionCategoryIdCounter: 3
     inputBehaviorIdCounter: 1
     mapCategoryIdCounter: 1
