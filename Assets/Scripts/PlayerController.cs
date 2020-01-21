@@ -84,7 +84,8 @@ public class PlayerController : MonoBehaviour
             }
 
             Cannonball cb = Instantiate(cannonballPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity).GetComponent<Cannonball>();
-            cb.GetComponent<WaterToy>().SetIgnoreCollisions(rb);
+            cb.GetComponent<WaterToy>().SetIgnoreCollisions(rb, true);
+            cb.GetComponent<WaterToy>().ResetIgnoreCollisions(rb, 1f);
             cb.transform.LookAt(cb.transform.position + cbDirection);
             
         }
@@ -92,7 +93,8 @@ public class PlayerController : MonoBehaviour
         if (player.GetButtonDown(RewiredConsts.Action.Bomb))
         {
             WaterToy bomb = Instantiate(powderKegPrefab, transform.position + Vector3.up * 1f - transform.forward * 1f, transform.rotation);
-            bomb.GetComponent<WaterToy>().SetIgnoreCollisions(rb);
+            bomb.GetComponent<WaterToy>().SetIgnoreCollisions(rb, true);
+            bomb.GetComponent<WaterToy>().ResetIgnoreCollisions(rb, 1f);
             bomb.GetComponent<Rigidbody>().AddForce(-transform.forward * 300f + transform.up * 400f);
             waterToy.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
             //bomb.transform.LookAt(bomb.transform.position + Vector3.down);

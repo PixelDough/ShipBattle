@@ -18,7 +18,7 @@ public class Cannonball : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y < -2f) Destroy(gameObject, 3f);
+        if (transform.position.y < -2f) Destroy(gameObject);
     }
 
 

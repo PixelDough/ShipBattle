@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
 
     public PlayerController shipPrefab;
+    public ShipType[] shipTypes;
 
     float spawnTime = 0f;
     int shipCount = 0;
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
 
         foreach(Player p in ReInput.players.GetPlayers())
         {
-            if (p.controllers.joystickCount > 0) playersPlaying.Add(p.id);
+            if (p.controllers.joystickCount > 0 || p.controllers.hasKeyboard) playersPlaying.Add(p.id);
         }
     }
 

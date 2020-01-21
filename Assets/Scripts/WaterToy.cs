@@ -11,6 +11,7 @@ public class WaterToy : MonoBehaviour
     public bool floatOnWater = true;
     private List<Rigidbody> ignoreCollisionsList = new List<Rigidbody>();
     public bool explodeOnCollision = false;
+    public Object deathParticle = null;
 
     private Rigidbody rb;
 
@@ -31,6 +32,8 @@ public class WaterToy : MonoBehaviour
             r.material.SetFloat("_FloatSeed", floatSeed);
             
         }
+
+        if (deathParticle == null) deathParticle = Resources.Load("Explosion Particle");
 
     }
 
@@ -91,6 +94,28 @@ public class WaterToy : MonoBehaviour
         }
     }
 
+
+    public void ResetIgnoreCollisions(Rigidbody _rigidbody, float _waitTime = 0f)
+    {
+        StartCoroutine(_ResetIgnoreCollisions(_rigidbody, _waitTime));
+    }
+
+
+    private IEnumerator _ResetIgnoreCollisions(Rigidbody _rigidbody, float _waitTime = 0f)
+    {
+        yield return new WaitForSeconds(_waitTime);
+
+        foreach (Collider c1 in GetComponentsInChildren<Collider>())
+        {
+            foreach (Collider c2 in _rigidbody.GetComponentsInChildren<Collider>())
+            {
+                Physics.IgnoreCollision(c1, c2, false);
+            }
+        }
+
+        yield return null;
+    }
+
     private void FixedUpdate()
     {
 
@@ -126,8 +151,7 @@ public class WaterToy : MonoBehaviour
     public void Explode()
     {
         FindObjectOfType<ScreenShake>().Shake();
-        Object explosionParticle = Resources.Load("Explosion Particle");
-        Instantiate(explosionParticle, transform.position + Vector3.up * 0.2f, Quaternion.identity);
+        Instantiate(deathParticle, transform.position + Vector3.up * 0.2f, Quaternion.identity);
         Destroy(this.gameObject);
     }
 
