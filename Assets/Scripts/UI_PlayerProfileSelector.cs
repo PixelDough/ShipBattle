@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Rewired;
 
 [ExecuteAlways]
 public class UI_PlayerProfileSelector : MonoBehaviour
 {
     [Range(-1, 3)]
     public int playerID = -1;
-    public ShipType selectedShip;
+    public int selectedShip;
     public Image flagImage;
     public TMPro.TextMeshProUGUI shipName;
 
@@ -16,6 +17,8 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     public Image inactiveCover; 
     public RectTransform nameSign;
     public RectTransform readyBar;
+
+    private Player p;
 
     public enum PlayerState
     {
@@ -33,6 +36,13 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     }
 
 
+    private void Start()
+    {
+        nameSign.LeanScaleY(0, 0f);
+        
+    }
+
+
     private void StateChangeEvents(PlayerState _state)
     {
         switch (playerState)
@@ -44,11 +54,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                 nameSign.LeanCancel();
                 nameSign.LeanScaleY(0, 0.2f).setEase(LeanTweenType.easeInOutCubic);
 
-                readyBar.LeanCancel();
-                readyBar.LeanSize(new Vector2(readyBar.rect.size.x, 100), 0.5f).setEase(LeanTweenType.easeOutCubic);
-
                 inactiveCover.enabled = true;
-
                 break;
             case PlayerState.Active:
                 inactiveSign.LeanCancel();
@@ -58,9 +64,14 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                 nameSign.LeanScaleY(1, 1f).setEase(LeanTweenType.easeOutBounce);
 
                 readyBar.LeanCancel();
-                readyBar.LeanSize(new Vector2(readyBar.rect.size.x, 0), 0.25f).setEase(LeanTweenType.easeInCubic);
+                readyBar.LeanSize(new Vector2(readyBar.rect.size.x, 0), 0.25f).setEase(LeanTweenType.easeOutCubic);
 
                 inactiveCover.enabled = false;
+                break;
+            case PlayerState.Selected:
+
+                readyBar.LeanCancel();
+                readyBar.LeanSize(new Vector2(readyBar.rect.size.x, 100), 0.25f).setEase(LeanTweenType.easeInCubic);
 
                 break;
         }
@@ -69,14 +80,33 @@ public class UI_PlayerProfileSelector : MonoBehaviour
 
     private void Update()
     {
-        if (selectedShip)
-        {
-            flagImage.sprite = selectedShip.flagSprite;
-            shipName.text = selectedShip.characterName;
-        }
+
+        
+        
 
         if (Application.isPlaying)
         {
+
+            flagImage.sprite = GameManager.Instance.shipTypes[selectedShip].flagSprite;
+            shipName.text = GameManager.Instance.shipTypes[selectedShip].characterName;
+
+
+            if (p == null)
+            {
+                if (playerID >= 0 && playerID < 4)
+                    p = ReInput.players.GetPlayer(playerID);
+            }
+            else
+            {
+                if (p.id != playerID)
+                    p = ReInput.players.GetPlayer(playerID);
+                if (playerState == PlayerState.Active)
+                {
+                    int inputDirection = p.GetButtonDown(RewiredConsts.Action.MenuHorizontal) ? Mathf.RoundToInt(p.GetAxis(RewiredConsts.Action.MenuHorizontal)) : 0;
+                    selectedShip = Mathf.Clamp(selectedShip + inputDirection, 0, 3);
+                }
+            }
+
             if (playerID >= 0)
             {
                 if (playerState == PlayerState.Inactive) playerState = PlayerState.Active;
