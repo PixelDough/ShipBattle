@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(WaterToy))]
 public class Cannonball : MonoBehaviour
 {
 
     private Rigidbody rb;
+    private WaterToy waterToy;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        waterToy = GetComponent<WaterToy>();
         FindObjectOfType<ScreenShake>().Shake();
         StartCoroutine(CannonLife());
     }
@@ -18,7 +21,7 @@ public class Cannonball : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y < -2f) Destroy(gameObject);
+        if (transform.position.y < -2f) waterToy.Destroy();
     }
 
 

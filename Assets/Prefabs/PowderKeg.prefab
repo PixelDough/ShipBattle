@@ -147,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7207381895463762066}
   - component: {fileID: 50248243107599155}
-  - component: {fileID: 6144176981093618847}
+  - component: {fileID: 2694981135194785141}
   m_Layer: 0
   m_Name: PowderKeg
   m_TagString: Untagged
@@ -188,7 +188,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
---- !u!114 &6144176981093618847
+--- !u!114 &2694981135194785141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,12 +197,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7207381895463762067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e861f550968081479b9f95480438fb0, type: 3}
+  m_Script: {fileID: 11500000, guid: a0e47f4befba5574bae84ab74b56f1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isInWater: 0
   floatOnWater: 1
   explodeOnCollision: 1
+  deathParticle: {fileID: 0}
 --- !u!1 &8136260335476499630
 GameObject:
   m_ObjectHideFlags: 0

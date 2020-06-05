@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2ed46c618d0374eb1fe66a99e8cff2, type: 3}
   m_Name: Pirates
   m_EditorClassIdentifier: 
+  characterName: Pirates
   color: {r: 0.49584562, g: 0, b: 0.6039216, a: 1}
+  imageMain: {fileID: 0}
+  imageIcon: {fileID: 0}
+  flagSprite: {fileID: 21300000, guid: 4a190e7866dce704ca7c197d8cc05b7e, type: 3}
+  flagMaterial: {fileID: 0}

@@ -10,6 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c2ed46c618d0374eb1fe66a99e8cff2, type: 3}
-  m_Name: British
+  m_Name: English
   m_EditorClassIdentifier: 
+  characterName: England
   color: {r: 0, g: 0.09122856, b: 0.6037736, a: 1}
+  imageMain: {fileID: 0}
+  imageIcon: {fileID: 0}
+  flagSprite: {fileID: 21300000, guid: f84afd0fe0016f646a1203acace6b74d, type: 3}
+  flagMaterial: {fileID: 0}

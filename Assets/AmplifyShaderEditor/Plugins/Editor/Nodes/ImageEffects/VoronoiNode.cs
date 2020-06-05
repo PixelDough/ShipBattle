@@ -24,12 +24,12 @@ namespace AmplifyShaderEditor
 			"}\n",
 			"\n",
 			"//x - Out y - Cells\n",
-			"float2 UnityVoronoi( float2 UV, float AngleOffset, float CellDensity )\n",
+			"float3 UnityVoronoi( float2 UV, float AngleOffset, float CellDensity )\n",
 			"{\n",
 			"\tfloat2 g = floor( UV * CellDensity );\n",
 			"\tfloat2 f = frac( UV * CellDensity );\n",
 			"\tfloat t = 8.0;\n",
-			"\tfloat2 res = float2( 8.0, 0.0 );\n",
+			"\tfloat3 res = float3( 8.0, 0.0, 0.0 );\n",
 			"\n",
 			"\tfor( int y = -1; y <= 1; y++ )\n",
 			"\t{\n",
@@ -164,7 +164,7 @@ namespace AmplifyShaderEditor
 			m_inputPorts[ 2 ].FloatInternalData = 1;
 
 			AddOutputPort( WirePortDataType.FLOAT, "Out" );
-			AddOutputPort( WirePortDataType.FLOAT, "ID" );
+			AddOutputPort( WirePortDataType.FLOAT2, "ID" );
 			m_textLabelWidth = 120;
 			m_useInternalPortData = true;
 			m_autoWrapProperties = true;
@@ -258,6 +258,8 @@ namespace AmplifyShaderEditor
 			RenderTexture.active = temp;
 
 			PreviewIsDirty = m_continuousPreviewRefresh;
+
+			FinishPreviewRender = true;
 		}
 
 		public override void DrawProperties()
@@ -425,9 +427,9 @@ namespace AmplifyShaderEditor
 				dataCollector.AddFunction( UnityVoroniNoiseFunctionsBody[ 0 ], UnityVoroniNoiseFunctionsBody, false );
 				string varName = "unityVoronoy" + OutputId;
 				string varValue = string.Format( UnityVoronoiNoiseFunc, uvValue, angleOffset, cellDensity );
-				dataCollector.AddLocalVariable( UniqueId, CurrentPrecisionType, WirePortDataType.FLOAT2, varName, varValue );
+				dataCollector.AddLocalVariable( UniqueId, CurrentPrecisionType, WirePortDataType.FLOAT3, varName, varValue );
 				m_outputPorts[ 0 ].SetLocalValue( varName + ".x", dataCollector.PortCategory );
-				m_outputPorts[ 1 ].SetLocalValue( varName + ".y", dataCollector.PortCategory );
+				m_outputPorts[ 1 ].SetLocalValue( varName + ".yz", dataCollector.PortCategory );
 				return m_outputPorts[ outputId ].LocalValue( dataCollector.PortCategory );
 			}
 			else
@@ -502,12 +504,12 @@ namespace AmplifyShaderEditor
 					dataCollector.AddLocalVariable( UniqueId, string.Format( "float fade{0} = 0.5;", OutputId ) );
 					dataCollector.AddLocalVariable( UniqueId, string.Format( "float voroi{0} = 0;", OutputId ) );
 					dataCollector.AddLocalVariable( UniqueId, string.Format( "float rest{0} = 0;", OutputId ) );
-					dataCollector.AddLocalVariable( UniqueId, "for( int it = 0; it <"+ m_octaves + "; it++ ){"  );
+					dataCollector.AddLocalVariable( UniqueId, string.Format( "for( int it{0} = 0; it{0} <" + m_octaves + "; it{0}++ ){{", OutputId)  );
 					dataCollector.AddLocalVariable( UniqueId, string.Format( "voroi{0} += fade{0} * voronoi{0}( coords{0}, time{0}, id{0},{1} );", OutputId, smoothnessName ) );
 					dataCollector.AddLocalVariable( UniqueId, string.Format( "rest{0} += fade{0};", OutputId ) );
 					dataCollector.AddLocalVariable( UniqueId, string.Format( "coords{0} *= 2;", OutputId ) );
 					dataCollector.AddLocalVariable( UniqueId, string.Format( "fade{0} *= 0.5;", OutputId ) );
-					dataCollector.AddLocalVariable( UniqueId, "}" );
+					dataCollector.AddLocalVariable( UniqueId, "}" + "//Voronoi" + OutputId );
 					dataCollector.AddLocalVariable( UniqueId, string.Format( "voroi{0} /= rest{0};", OutputId ) );
 				}
 				m_outputPorts[ 0 ].SetLocalValue( "voroi" + OutputId, dataCollector.PortCategory );

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
 
     public PlayerController shipPrefab;
@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
 
     float spawnTime = 0f;
     int shipCount = 0;
-    List<int> playersPlaying = new List<int>();
+    List<PlayerData> playersPlaying = new List<PlayerData>();
+    
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
 
         foreach(Player p in ReInput.players.GetPlayers())
         {
-            if (p.controllers.joystickCount > 0 || p.controllers.hasKeyboard) playersPlaying.Add(p.id);
+            if (p.controllers.joystickCount > 0 || p.controllers.hasKeyboard) playersPlaying.Add(new PlayerData(p.id));
         }
     }
 
@@ -42,8 +43,8 @@ public class GameManager : MonoBehaviour
                 PlayerController playerShip = Instantiate(shipPrefab, point.transform.position, point.transform.rotation);
 
                 // Set ship variables
-                // Set the player ID
-                playerShip.playerID = playersPlaying[shipCount];
+                // Set the player data
+                playerShip.playerData = playersPlaying[shipCount];
 
                 // Spawn poof particle
                 Object poof = Resources.Load("Poof Particle");
@@ -57,6 +58,24 @@ public class GameManager : MonoBehaviour
             }
         }
         
+    }
+
+    public class PlayerData
+    {
+        public int playerID;
+        public int shipType;
+
+        public PlayerData()
+        {
+            playerID = 0;
+            shipType = 0;
+        }
+
+        public PlayerData(int _playerID)
+        {
+            playerID = _playerID;
+            shipType = _playerID;
+        }
     }
 
 }

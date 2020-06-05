@@ -20,7 +20,7 @@ public class ScreenShake : MonoBehaviour
 
     public void Shake()
     {
-        Shake(0.2f);
+        Shake(2f);
     }
 
     public void Shake(float amplitude)
@@ -32,19 +32,18 @@ public class ScreenShake : MonoBehaviour
     private IEnumerator _Shake(float amplitude)
     {
         CinemachineVirtualCamera vc = brain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineVirtualCamera>();
+        CinemachineBasicMultiChannelPerlin vcp = vc.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
-        transform.position = cameraStartPos;
-        cameraStartPos = transform.position;
+        //transform.position = cameraStartPos;
+        //cameraStartPos = transform.position;
 
-        float duration = Time.time + 0.2f;
+        vcp.m_AmplitudeGain = amplitude;
 
-        while (Time.time < duration)
-        {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(cameraStartPos.x + Random.Range(-amplitude, amplitude), cameraStartPos.y + Random.Range(-amplitude, amplitude), cameraStartPos.z + Random.Range(-amplitude, amplitude)), 0.5f);
-            yield return null;
-        }
+        yield return new WaitForSeconds(0.2f);
 
-        transform.position = cameraStartPos;
+        vcp.m_AmplitudeGain = 0f;
+
+        //transform.position = cameraStartPos;
 
 
     }

@@ -10,12 +10,25 @@ public class WaterToy : MonoBehaviour
     [HideInInspector] public bool isInWater = false;
     public bool floatOnWater = true;
     private List<Rigidbody> ignoreCollisionsList = new List<Rigidbody>();
+
+    public int maxHealth = 1;
+    private int health;
+
+    [Header("Fire")]
     public bool explodeOnCollision = false;
+    public bool combustable = false;
+    public float combustionTime = 5f;
+    private bool isOnFire = false;
+
     public Object deathParticle = null;
 
     private Rigidbody rb;
 
     private bool wasInWaterPreviousFrame = false;
+
+    bool isWrappingX = false;
+    bool isWrappingY = false;
+    Renderer[] renderers;
 
 
     private void Start()
@@ -26,6 +39,8 @@ public class WaterToy : MonoBehaviour
         rb.angularDrag = 1f;
         rb.drag = 1f;
 
+        health = maxHealth;
+
         int floatSeed = Random.Range(0, 100);
         foreach(Renderer r in gameObject.GetComponentsInChildren<Renderer>())
         {
@@ -34,6 +49,8 @@ public class WaterToy : MonoBehaviour
         }
 
         if (deathParticle == null) deathParticle = Resources.Load("Explosion Particle");
+
+        renderers = GetComponentsInChildren<Renderer>();
 
     }
 
@@ -61,25 +78,116 @@ public class WaterToy : MonoBehaviour
     }
 
 
-    private void OnDestroy()
+    public void Damage(int _amount = 1)
     {
-        //foreach(ParticleSystem ps in GetComponentsInChildren<ParticleSystem>())
-        //{
-        //    ps.gameObject.transform.parent = null;
-        //    ParticleSystem.EmissionModule emission = ps.emission;
-        //    emission.rateOverTime = 0;
-        //    emission.rateOverDistance = 0;
-        //    emission.burstCount = 0;
+        health -= _amount;
 
-        //    ParticleSystem.MainModule main = ps.main;
-        //    main.stopAction = ParticleSystemStopAction.Destroy;
-        //}
-        //foreach(TrailRenderer t in GetComponentsInChildren<TrailRenderer>())
-        //{
-        //    t.transform.parent = null;
-        //    t.autodestruct = true;
-        //    Destroy(t.gameObject, t.time);
-        //}
+        if (health <= 0)
+        {
+            Explode();
+        }
+        else if (health == 1)
+        {
+            if (maxHealth > 1)
+            {
+                //Renderer[] renderers = GetComponentsInChildren<Renderer>();
+                //foreach(Renderer r in renderers)
+                //{
+                //    foreach(Material m in r.materials)
+                //    {
+                //        m.SetFloat("_Flashing", 1);
+                //    }
+                //}
+
+            }
+        }
+    }
+
+
+    public void Destroy()
+    {
+        ParticleSystem[] particleSystems = GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem ps in particleSystems)
+        {
+            if (!ps.gameObject.activeSelf) { continue; }
+
+            ParticleSystem.MainModule main = ps.main;
+            main.stopAction = ParticleSystemStopAction.Destroy;
+            main.loop = false;
+
+            ParticleSystem.EmissionModule emission = ps.emission;
+            emission.rateOverTime = 0;
+            emission.rateOverDistance = 0;
+            emission.burstCount = 0;
+
+            ps.transform.parent = null;
+        }
+        particleSystems = null;
+
+        foreach (TrailRenderer t in GetComponentsInChildren<TrailRenderer>())
+        {
+            if (!t.gameObject.activeSelf) { continue; }
+
+            t.autodestruct = true;
+            Destroy(t.gameObject, t.time);
+            t.transform.parent = null;
+        }
+
+        Destroy(this.gameObject);
+    }
+
+
+    bool CheckRenderers()
+    {
+        foreach (var renderer in renderers)
+        {
+            // If at least one render is visible, return true
+            if (renderer.isVisible)
+            {
+                return true;
+            }
+        }
+
+        // Otherwise, the object is invisible
+        return false;
+    }
+
+
+    void ScreenWrap()
+    {
+        var isVisible = CheckRenderers();
+
+        if (isVisible)
+        {
+            isWrappingX = false;
+            isWrappingY = false;
+            return;
+        }
+
+        if (isWrappingX && isWrappingY)
+        {
+            return;
+        }
+
+        var cam = Camera.main;
+        var viewportPosition = cam.WorldToViewportPoint(transform.position);
+        var newPosition = transform.position;
+
+        if (!isWrappingX && (viewportPosition.x > 1 || viewportPosition.x < 0))
+        {
+            newPosition.x = -newPosition.x;
+
+            isWrappingX = true;
+        }
+
+        if (!isWrappingY && (viewportPosition.y > 1 || viewportPosition.y < 0))
+        {
+            newPosition.y = -newPosition.y;
+
+            isWrappingY = true;
+        }
+
+        transform.position = newPosition;
     }
 
 
@@ -135,8 +243,34 @@ public class WaterToy : MonoBehaviour
                 Vector3 force = Vector3.up * UpwardForce;
                 rb.AddForce(force, ForceMode.Acceleration);
             }
+
+            //transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0f, transform.eulerAngles.y, 0f), 5f * Time.deltaTime);
+        }
+
+        //ScreenWrap();
+    }
+
+
+    public void SetOnFire()
+    {
+        if (!isOnFire)
+        {
+            StartCoroutine(_SetOnFire());
         }
     }
+
+
+    private IEnumerator _SetOnFire()
+    {
+
+        isOnFire = true;
+
+        yield return new WaitForSeconds(combustionTime);
+
+        isOnFire = false;
+
+    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -144,15 +278,41 @@ public class WaterToy : MonoBehaviour
 
         if (explodeOnCollision)
         {
-            Explode();
+            Damage();
         }
     }
 
-    public void Explode()
+    public virtual void Explode()
     {
+
+        //Collider[] others = Physics.OverlapSphere(transform.position, 2f);
+        //foreach (Collider c in others)
+        //{
+        //    WaterToy _waterToy;
+        //    if (c.attachedRigidbody)
+        //    {
+        //        if (c.attachedRigidbody.gameObject.TryGetComponent(out _waterToy))
+        //        {
+        //            _waterToy.Explode(0.5f);
+        //        }
+        //    }
+        //}
+
         FindObjectOfType<ScreenShake>().Shake();
         Instantiate(deathParticle, transform.position + Vector3.up * 0.2f, Quaternion.identity);
-        Destroy(this.gameObject);
+        Destroy();
+    }
+
+    public void Explode(float _time)
+    {
+        StartCoroutine(_Explode(_time));
+    }
+
+    private IEnumerator _Explode(float _time)
+    {
+        yield return new WaitForSeconds(_time);
+
+        Explode();
     }
 
 }

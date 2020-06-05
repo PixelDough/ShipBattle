@@ -6,7 +6,8 @@ using Rewired;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    public int playerID = 0;
+
+    public GameManager.PlayerData playerData;
 
     public GameObject cannonballPrefab;
     public WaterToy powderKegPrefab;
@@ -25,15 +26,20 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        player = ReInput.players.GetPlayer(playerID);
+        player = ReInput.players.GetPlayer(playerData.playerID);
         rb = GetComponent<Rigidbody>();
         waterToy = GetComponent<WaterToy>();
 
-        shipModel.GetComponentInChildren<Renderer>().material.SetColor("_BaseColor", Random.ColorHSV(0, 1, 1, 1, .5f, .5f));
+        //FindObjectOfType<Cinemachine.CinemachineTargetGroup>().AddMember(transform, 1, 5);
+
+        //shipModel.GetComponentInChildren<Renderer>().material.SetColor("_BaseColor", Random.ColorHSV(0, 1, 1, 1, .5f, .5f));
+        shipModel.GetComponentInChildren<Renderer>().material.SetColor("_BaseColor", GameManager.Instance.shipTypes[playerData.playerID].color);
         /*
          * Color Choices:
          * 801400
          */
+
+        
     }
 
 
