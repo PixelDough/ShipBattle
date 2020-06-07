@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Shared
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-Assets-Shared
+  m_Data:
+    m_SerializedData: []
+  m_GUID: bdc271f470c5ee646bc3aea43c68761c
+  m_SerializeEntries:
+  - m_GUID: 1202727a27d97e54fb3e998d3e33c5cf
+    m_Address: Character Strings Shared Data
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.Localization.Tables.SharedTableData, Unity.Localization,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - m_GUID: 9109256393dfd404699ba914c8292161
+    m_Address: Character Select Screen Shared Data
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: 
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: f72fdaece95d6814a80f0952d0413f7c, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0cb01f8600b74634e8a54603aeeb531f, type: 2}
+    - {fileID: 11400000, guid: df768802577b78d41ab12bcf91df5764, type: 2}

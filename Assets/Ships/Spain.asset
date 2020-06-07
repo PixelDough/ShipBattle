@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2ed46c618d0374eb1fe66a99e8cff2, type: 3}
+  m_Name: Spain
+  m_EditorClassIdentifier: 
+  characterName: name_spain
+  localName:
+    m_TableReference:
+      m_TableName: GUID:1202727a27d97e54fb3e998d3e33c5cf
+    m_TableEntryReference:
+      m_KeyId: 4
+      m_Key: 
+  color: {r: 0.6039216, g: 0.49392548, b: 0, a: 1}
+  imageMain: {fileID: 0}
+  imageIcon: {fileID: 0}
+  flagSprite: {fileID: 21300000, guid: e1e9f9ca592d2164db0cdd217836f0b2, type: 3}
+  flagMaterial: {fileID: 0}

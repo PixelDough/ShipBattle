@@ -6,7 +6,7 @@ using Rewired;
 public class CharacterSelectManager : MonoBehaviour
 {
 
-    public UI_PlayerProfileSelector[] playerProfileSelectors;
+    public List<UI_PlayerProfileSelector> playerProfileSelectors = new List<UI_PlayerProfileSelector>();
 
     private Player p;
 
@@ -27,7 +27,6 @@ public class CharacterSelectManager : MonoBehaviour
         //    playerProfileSelectors[p.playerID].playerID = p.playerID;
         //    //playerProfileSelectors[p.playerID].selectedShip = GameManager.Instance.shipTypes[p.shipType];
         //}
-
     }
 
 
@@ -40,35 +39,25 @@ public class CharacterSelectManager : MonoBehaviour
             if (p.GetButtonDown(RewiredConsts.Action.MenuSelect))
             {
                 bool isAlreadyIn = false;
+                UI_PlayerProfileSelector firstEmptySlot = default;
                 foreach(UI_PlayerProfileSelector pps in playerProfileSelectors)
                 {
                     if (pps.playerID == p.id)
                     {
                         isAlreadyIn = true;
+                        if (pps.playerState != UI_PlayerProfileSelector.PlayerState.Selected) pps.playerState = UI_PlayerProfileSelector.PlayerState.Selected;
                         break;
                     }
+
+                    if (pps.playerID == -1 && firstEmptySlot == default)
+                        firstEmptySlot = pps;
                 }
 
-                if (isAlreadyIn)
+                if (!isAlreadyIn)
                 {
-                    foreach (UI_PlayerProfileSelector pps in playerProfileSelectors)
+                    if (firstEmptySlot != default)
                     {
-                        if (pps.playerID == p.id)
-                        {
-                            pps.playerState = UI_PlayerProfileSelector.PlayerState.Selected;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (UI_PlayerProfileSelector pps in playerProfileSelectors)
-                    {
-                        if (pps.playerID == -1)
-                        {
-                            pps.playerID = p.id;
-                            break;
-                        }
+                        firstEmptySlot.playerID = p.id;
                     }
                 }
             }

@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2ed46c618d0374eb1fe66a99e8cff2, type: 3}
   m_Name: Pirates
   m_EditorClassIdentifier: 
-  characterName: Pirates
+  characterName: name_pirates
+  localName:
+    m_TableReference:
+      m_TableName: GUID:1202727a27d97e54fb3e998d3e33c5cf
+    m_TableEntryReference:
+      m_KeyId: 5
+      m_Key: 
   color: {r: 0.49584562, g: 0, b: 0.6039216, a: 1}
   imageMain: {fileID: 0}
   imageIcon: {fileID: 0}

@@ -129,7 +129,7 @@ MonoBehaviour:
         useNativeMouse: 1
       maxJoysticksPerPlayer: 1
       autoAssignJoysticks: 1
-      assignJoysticksToPlayingPlayersOnly: 1
+      assignJoysticksToPlayingPlayersOnly: 0
       distributeJoysticksEvenly: 1
       reassignJoystickToPreviousOwnerOnReconnect: 1
       defaultJoystickAxis2DDeadZoneType: 2
@@ -189,7 +189,7 @@ MonoBehaviour:
     - _id: 1
       _name: Player1
       _descriptiveName: Player 1
-      _startPlaying: 1
+      _startPlaying: 0
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -217,7 +217,7 @@ MonoBehaviour:
     - _id: 2
       _name: Player2
       _descriptiveName: Player 2
-      _startPlaying: 1
+      _startPlaying: 0
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -245,7 +245,7 @@ MonoBehaviour:
     - _id: 3
       _name: Player3
       _descriptiveName: Player 3
-      _startPlaying: 1
+      _startPlaying: 0
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -273,7 +273,7 @@ MonoBehaviour:
     - _id: 4
       _name: Player4
       _descriptiveName: Player 4
-      _startPlaying: 1
+      _startPlaying: 0
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0

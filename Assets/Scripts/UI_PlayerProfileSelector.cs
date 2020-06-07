@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Rewired;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Tables;
+using UnityEngine.Localization.Settings;
+
 
 [ExecuteAlways]
 public class UI_PlayerProfileSelector : MonoBehaviour
@@ -15,10 +19,15 @@ public class UI_PlayerProfileSelector : MonoBehaviour
 
     public RectTransform inactiveSign; 
     public Image inactiveCover; 
-    public RectTransform nameSign;
+    public RectTransform nameSignSwingJoint;
+    public RectTransform nameSignImage;
     public RectTransform readyBar;
 
     private Player p;
+
+    private LTDescr signScaleTween;
+
+    
 
     public enum PlayerState
     {
@@ -38,8 +47,8 @@ public class UI_PlayerProfileSelector : MonoBehaviour
 
     private void Start()
     {
-        nameSign.LeanScaleY(0, 0f);
-        
+        nameSignImage.LeanScaleY(0, 0f);
+        UpdateData();
     }
 
 
@@ -51,8 +60,8 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                 inactiveSign.LeanCancel();
                 inactiveSign.LeanScaleY(1, 1f).setEase(LeanTweenType.easeOutBounce);
 
-                nameSign.LeanCancel();
-                nameSign.LeanScaleY(0, 0.2f).setEase(LeanTweenType.easeInOutCubic);
+                nameSignImage.LeanCancel();
+                nameSignImage.LeanScaleY(0, 0.2f).setEase(LeanTweenType.easeInOutCubic);
 
                 inactiveCover.enabled = true;
                 break;
@@ -60,8 +69,8 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                 inactiveSign.LeanCancel();
                 inactiveSign.LeanScaleY(0, 0.2f).setEase(LeanTweenType.easeInOutCubic);
 
-                nameSign.LeanCancel();
-                nameSign.LeanScaleY(1, 1f).setEase(LeanTweenType.easeOutBounce);
+                nameSignImage.LeanCancel();
+                nameSignImage.LeanScaleY(1, 1f).setEase(LeanTweenType.easeOutBounce);
 
                 readyBar.LeanCancel();
                 readyBar.LeanSize(new Vector2(readyBar.rect.size.x, 0), 0.25f).setEase(LeanTweenType.easeOutCubic);
@@ -78,32 +87,63 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     }
 
 
+    private void UpdateData()
+    {
+        StartCoroutine(_UpdateData());
+    }
+
+    private IEnumerator _UpdateData()
+    {
+        if (Application.isPlaying) {
+            
+            flagImage.sprite = GameManager.Instance.shipTypes[selectedShip].flagSprite;
+            //shipName.text = TranslationManager.Instance.TranslatedString(GameManager.Instance.shipTypes[selectedShip].characterName);
+
+            yield return LocalizationSettings.InitializationOperation;
+            var async = GameManager.Instance.shipTypes[selectedShip].localName.GetLocalizedString();
+            while (!async.IsDone) { yield return null; }
+            shipName.text = async.Result;
+        }
+        yield return null;
+    }
+
+
     private void Update()
     {
-
-        
-        
 
         if (Application.isPlaying)
         {
 
-            flagImage.sprite = GameManager.Instance.shipTypes[selectedShip].flagSprite;
-            shipName.text = GameManager.Instance.shipTypes[selectedShip].characterName;
+            
 
+            //shipName.transform.rotation = Quaternion.Lerp(shipName.transform.rotation, Quaternion.identity, 10 * Time.deltaTime);
 
-            if (p == null)
+            if (p == null || (p.id != playerID))
             {
                 if (playerID >= 0 && playerID < 4)
                     p = ReInput.players.GetPlayer(playerID);
             }
             else
             {
-                if (p.id != playerID)
-                    p = ReInput.players.GetPlayer(playerID);
                 if (playerState == PlayerState.Active)
                 {
                     int inputDirection = p.GetButtonDown(RewiredConsts.Action.MenuHorizontal) ? Mathf.RoundToInt(p.GetAxis(RewiredConsts.Action.MenuHorizontal)) : 0;
-                    selectedShip = Mathf.Clamp(selectedShip + inputDirection, 0, 3);
+                    
+
+                    if (inputDirection != 0)
+                    {
+                        if (true || selectedShip != Mathf.Clamp(selectedShip + inputDirection, 0, GameManager.Instance.shipTypes.Length - 1))
+                        {
+                            //nameSignSwingJoint.Rotate(Vector3.forward, 5 * inputDirection);
+                            nameSignSwingJoint.LeanCancel();
+                            nameSignSwingJoint.LeanRotateZ(10 * inputDirection, 0.1f).setEaseOutCubic();
+                            nameSignSwingJoint.LeanRotateZ(0, 2f).setEaseOutElastic().setDelay(0.1f);
+                        }
+
+                        selectedShip = (int)Mathf.Repeat(selectedShip + inputDirection, GameManager.Instance.shipTypes.Length);
+
+                        UpdateData();
+                    }
                 }
             }
 
