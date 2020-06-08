@@ -19,7 +19,7 @@ MonoBehaviour:
     m_TableEntryReference:
       m_KeyId: 6
       m_Key: 
-  color: {r: 0.2460395, g: 0.8360517, b: 0.9150943, a: 1}
+  color: {r: 0, g: 0.5320587, b: 0.603, a: 1}
   imageMain: {fileID: 0}
   imageIcon: {fileID: 0}
   flagSprite: {fileID: 21300000, guid: bfe05979f3cb9834887bd47db078983e, type: 3}

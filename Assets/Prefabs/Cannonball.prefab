@@ -4945,7 +4945,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInWater: 0
   floatOnWater: 0
+  maxHealth: 1
   explodeOnCollision: 1
+  combustable: 0
+  combustionTime: 5
   deathParticle: {fileID: 2595002262926658359, guid: fda533c2e4743a34491dc8a1a54178a3,
     type: 3}
 --- !u!1 &8198077937055563327

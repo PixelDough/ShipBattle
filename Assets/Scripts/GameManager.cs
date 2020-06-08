@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
 
     float spawnTime = 0f;
     int shipCount = 0;
-    public List<PlayerData> playersPlaying = new List<PlayerData>();
+    public PlayerData[] playersPlaying = new PlayerData[4];
     
 
     private void Start()
@@ -20,69 +20,130 @@ public class GameManager : Singleton<GameManager>
 
         spawnTime = Time.time + 0.5f;
 
-        foreach (Player p in ReInput.players.GetPlayers())
-        {
-            if (p.controllers.joystickCount > 0 || p.controllers.hasKeyboard) playersPlaying.Add(new PlayerData(p.id));
-        }
+        //foreach (Player p in ReInput.players.GetPlayers())
+        //{
+        //    if (p.controllers.joystickCount > 0 || p.controllers.hasKeyboard) playersPlaying.Add(new PlayerData(p.id));
+        //}
     }
 
     private void Update()
     {
-        //// GAMEPLAY SPAWNING CODE
-        //if (SpawnPoint.spawnPoints.Count > 0 && shipCount < playersPlaying.Count)
-        //{
-        //    if (Time.time >= spawnTime)
-        //    {
-        //        // Pick a random spawn point
-        //        SpawnPoint point = SpawnPoint.spawnPoints[Random.Range(0, SpawnPoint.spawnPoints.Count)];
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log(playersPlaying[2].shipType);
+        }
 
-        //        // Remove spawn point so it isn't used again
-        //        SpawnPoint.spawnPoints.Remove(point);
+        // GAMEPLAY SPAWNING CODE
+        List<PlayerData> finalPlayers = new List<PlayerData>();
+        foreach(PlayerData pd in playersPlaying)
+        {
+            if (pd != null)
+            {
+                finalPlayers.Add(pd);
+            }
+        }
+        if (SpawnPoint.spawnPoints.Count > 0 && shipCount < finalPlayers.Count)
+        {
+            if (Time.time >= spawnTime)
+            {
+                // Pick a random spawn point
+                SpawnPoint point = SpawnPoint.spawnPoints[Random.Range(0, SpawnPoint.spawnPoints.Count)];
 
-        //        // Spawn a player ship at spawn point
-        //        PlayerController playerShip = Instantiate(shipPrefab, point.transform.position, point.transform.rotation);
+                // Remove spawn point so it isn't used again
+                SpawnPoint.spawnPoints.Remove(point);
 
-        //        // Set ship variables
-        //        // Set the player data
-        //        playerShip.playerData = playersPlaying[shipCount];
+                // Spawn a player ship at spawn point
+                PlayerController playerShip = Instantiate(shipPrefab, point.transform.position, point.transform.rotation);
 
-        //        // Spawn poof particle
-        //        Object poof = Resources.Load("Poof Particle");
-        //        Instantiate(poof, point.transform.position, Quaternion.identity);
+                // Set ship variables
+                // Set the player data
+                playerShip.playerData = finalPlayers[shipCount];
 
-        //        // Increment the shipCount variable
-        //        shipCount++;
+                // Spawn poof particle
+                Object poof = Resources.Load("Poof Particle");
+                Instantiate(poof, point.transform.position, Quaternion.identity);
 
-        //        spawnTime = Time.time + 0.5f;
-                
-        //    }
-        //}
-        
+                // Increment the shipCount variable
+                shipCount++;
+
+                spawnTime = Time.time + 0.5f;
+
+            }
+        }
+
     }
 
-    public void AddPlayer(int _id)
+    public PlayerData AddPlayer(int _controllerID, int _shipType)
     {
-        playersPlaying.Add(new PlayerData(_id));
+        for (int i = 0; i < playersPlaying.Length; i++)
+        {
+            if (playersPlaying[i] != null) continue;
+
+            PlayerData playerData = new PlayerData(_controllerID: _controllerID, _playerSlot: i, _shipType: _shipType);
+            playersPlaying[i] = playerData;
+            return playerData;
+
+        }
+        return null;
+        //playersPlaying.Add(new PlayerData(_id));
+    }
+
+    public PlayerData GetPlayer(int _controllerID)
+    {
+        for (int i = 0; i < playersPlaying.Length; i++)
+        {
+            if (playersPlaying[i].controllerID == _controllerID) return playersPlaying[i];
+
+        }
+        return null;
+    }
+
+    public void RemovePlayer(int _id)
+    {
+        for (int i = 0; i < playersPlaying.Length; i++)
+        {
+            if (playersPlaying[i] == null) continue;
+
+            if (playersPlaying[i].controllerID == _id)
+            {
+                playersPlaying[i] = null;
+                break;
+            }
+        }
     }
 
     public class PlayerData
     {
-        public int playerID;
+        public int controllerID;
         public int playerSlot;
         public int shipType;
 
         public PlayerData()
         {
-            playerID = 0;
+            controllerID = 0;
             playerSlot = 0;
             shipType = 0;
         }
 
-        public PlayerData(int _playerID)
+        public PlayerData(int _controllerID)
         {
-            playerID = _playerID;
-            playerSlot = _playerID;
-            shipType = _playerID;
+            controllerID = _controllerID;
+            playerSlot = _controllerID;
+            shipType = _controllerID;
+        }
+
+        public PlayerData(int _controllerID, int _playerSlot)
+        {
+            controllerID = _controllerID;
+            playerSlot = _playerSlot;
+            shipType = _controllerID;
+        }
+
+        public PlayerData(int _controllerID, int _playerSlot, int _shipType)
+        {
+            controllerID = _controllerID;
+            playerSlot = _playerSlot;
+            shipType = _shipType;
         }
     }
 

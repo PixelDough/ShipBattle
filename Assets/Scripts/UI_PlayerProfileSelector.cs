@@ -23,10 +23,11 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     public RectTransform nameSignImage;
     public RectTransform readyBar;
 
+    public GameManager.PlayerData playerData;
+
     private Player p;
 
     private LTDescr signScaleTween;
-
     
 
     public enum PlayerState
@@ -128,7 +129,6 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                 if (playerState == PlayerState.Active)
                 {
                     int inputDirection = p.GetButtonDown(RewiredConsts.Action.MenuHorizontal) ? Mathf.RoundToInt(p.GetAxis(RewiredConsts.Action.MenuHorizontal)) : 0;
-                    
 
                     if (inputDirection != 0)
                     {
@@ -141,7 +141,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                         }
 
                         selectedShip = (int)Mathf.Repeat(selectedShip + inputDirection, GameManager.Instance.shipTypes.Length);
-
+                        GameManager.Instance.GetPlayer(playerID).shipType = selectedShip;
                         UpdateData();
                     }
                 }

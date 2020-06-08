@@ -206,7 +206,7 @@ MonoBehaviour:
       _startingCustomControllers: []
       _assignMouseOnStart: 1
       _assignKeyboardOnStart: 1
-      _excludeFromControllerAutoAssignment: 0
+      _excludeFromControllerAutoAssignment: 1
       _controllerMapLayoutManagerSettings:
         _enabled: 1
         _loadFromUserDataStore: 1
@@ -389,6 +389,15 @@ MonoBehaviour:
       _behaviorId: 0
       _userAssignable: 1
       _categoryId: 3
+    - _id: 11
+      _name: Start
+      _type: 1
+      _descriptiveName: Start
+      _positiveDescriptiveName: 
+      _negativeDescriptiveName: 
+      _behaviorId: 0
+      _userAssignable: 1
+      _categoryId: 3
     actionCategories:
     - _name: Default
       _descriptiveName: Default
@@ -419,7 +428,7 @@ MonoBehaviour:
       - categoryId: 2
         actionIds: 0500000004000000
       - categoryId: 3
-        actionIds: 0700000008000000090000000a000000
+        actionIds: 0700000008000000090000000a0000000b000000
     inputBehaviors:
     - _id: 0
       _name: Default
@@ -707,6 +716,17 @@ MonoBehaviour:
         _modifierKey1: 0
         _modifierKey2: 0
         _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 11
+        _elementType: 1
+        _elementIdentifierId: 14
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
     keyboardMaps:
     - id: 0
       categoryId: 0
@@ -880,6 +900,17 @@ MonoBehaviour:
         _modifierKey1: 0
         _modifierKey2: 0
         _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 11
+        _elementType: 1
+        _elementIdentifierId: -1
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 13
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
     mouseMaps:
     - id: 0
       categoryId: 0
@@ -915,7 +946,7 @@ MonoBehaviour:
     controllerMapLayoutManagerRuleSets: []
     controllerMapEnablerRuleSets: []
     playerIdCounter: 5
-    actionIdCounter: 11
+    actionIdCounter: 12
     actionCategoryIdCounter: 4
     inputBehaviorIdCounter: 1
     mapCategoryIdCounter: 1

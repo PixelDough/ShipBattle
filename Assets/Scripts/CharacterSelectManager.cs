@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
+using UnityEngine.SceneManagement;
 
 public class CharacterSelectManager : MonoBehaviour
 {
@@ -58,7 +59,30 @@ public class CharacterSelectManager : MonoBehaviour
                     if (firstEmptySlot != default)
                     {
                         firstEmptySlot.playerID = p.id;
+                        //firstEmptySlot.playerData = new GameManager.PlayerData(p.id);
+                        //GameManager.Instance.playersPlaying.Add(firstEmptySlot.playerData);
+
+                        GameManager.Instance.AddPlayer(p.id, firstEmptySlot.selectedShip);
+                        firstEmptySlot.playerData = GameManager.Instance.GetPlayer(p.id);
                     }
+                }
+            }
+
+            if (p.GetButtonDown(RewiredConsts.Action.Start))
+            {
+                bool startBattle = true;
+                foreach (UI_PlayerProfileSelector pps in playerProfileSelectors)
+                {
+                    if (pps.playerID == -1) continue;
+                    if (pps.playerState != UI_PlayerProfileSelector.PlayerState.Selected)
+                    {
+                        startBattle = false;
+                        break;
+                    }
+                }
+                if (startBattle)
+                {
+                    SceneManager.LoadScene("Game");
                 }
             }
 
@@ -77,6 +101,8 @@ public class CharacterSelectManager : MonoBehaviour
                         else
                         {
                             pps.playerID = -1;
+                            //GameManager.Instance.playersPlaying.Remove(pps.playerData);
+                            GameManager.Instance.RemovePlayer(p.id);
                             break;
                         }
                     }

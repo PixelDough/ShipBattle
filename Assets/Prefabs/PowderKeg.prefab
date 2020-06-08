@@ -202,7 +202,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInWater: 0
   floatOnWater: 1
+  maxHealth: 1
   explodeOnCollision: 1
+  combustable: 1
+  combustionTime: 5
   deathParticle: {fileID: 0}
 --- !u!1 &8136260335476499630
 GameObject:

@@ -26,14 +26,14 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        player = ReInput.players.GetPlayer(playerData.playerID);
+        player = ReInput.players.GetPlayer(playerData.controllerID);
         rb = GetComponent<Rigidbody>();
         waterToy = GetComponent<WaterToy>();
 
         //FindObjectOfType<Cinemachine.CinemachineTargetGroup>().AddMember(transform, 1, 5);
 
         //shipModel.GetComponentInChildren<Renderer>().material.SetColor("_BaseColor", Random.ColorHSV(0, 1, 1, 1, .5f, .5f));
-        shipModel.GetComponentInChildren<Renderer>().material.SetColor("_BaseColor", GameManager.Instance.shipTypes[playerData.playerID].color);
+        shipModel.GetComponentInChildren<Renderer>().material.SetColor("_BaseColor", GameManager.Instance.shipTypes[playerData.shipType].color);
         /*
          * Color Choices:
          * 801400
