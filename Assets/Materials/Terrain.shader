@@ -4,6 +4,8 @@ Shader "ShipBattle/TerrainFirstPass"
 {
 	Properties
 	{
+		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
+		[HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
 		_SandColor("Sand Color", Color) = (0.8207547,0.7096044,0.4839356,1)
 		_TopColor("Top Color", Color) = (0.3775365,0.7924528,0.4121128,1)
 
@@ -64,7 +66,8 @@ Shader "ShipBattle/TerrainFirstPass"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/UnityInstancing.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			
-			
+			#define ASE_NEEDS_FRAG_WORLD_NORMAL
+
 
 			CBUFFER_START( UnityPerMaterial )
 			float4 _SandColor;
@@ -236,118 +239,6 @@ Shader "ShipBattle/TerrainFirstPass"
 		Pass
 		{
 			
-			Name "ShadowCaster"
-			Tags { "LightMode"="ShadowCaster" }
-
-			ZWrite On
-			ZTest LEqual
-
-			HLSLPROGRAM
-			#pragma multi_compile_instancing
-			#pragma multi_compile _ LOD_FADE_CROSSFADE
-			#pragma multi_compile_fog
-			#define ASE_FOG 1
-			#define ASE_SRP_VERSION 999999
-
-			#pragma prefer_hlslcc gles
-			#pragma exclude_renderers d3d11_9x
-
-			#pragma vertex ShadowPassVertex
-			#pragma fragment ShadowPassFragment
-
-
-			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
-			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
-
-			
-
-			struct VertexInput
-			{
-				float4 vertex : POSITION;
-				float3 ase_normal : NORMAL;
-				
-				UNITY_VERTEX_INPUT_INSTANCE_ID
-			};
-
-			CBUFFER_START( UnityPerMaterial )
-			float4 _SandColor;
-			float4 _TopColor;
-			CBUFFER_END
-
-
-			struct VertexOutput
-			{
-				float4 clipPos : SV_POSITION;
-				
-				UNITY_VERTEX_INPUT_INSTANCE_ID
-			};
-
-			
-			float3 _LightDirection;
-
-			VertexOutput ShadowPassVertex( VertexInput v )
-			{
-				VertexOutput o;
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-
-				
-				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.vertex.xyz;
-				#else
-					float3 defaultVertexValue = float3(0, 0, 0);
-				#endif
-				float3 vertexValue = defaultVertexValue;
-				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.vertex.xyz = vertexValue;
-				#else
-					v.vertex.xyz += vertexValue;
-				#endif
-
-				v.ase_normal = v.ase_normal;
-
-				float3 positionWS = TransformObjectToWorld(v.vertex.xyz);
-				float3 normalWS = TransformObjectToWorldDir(v.ase_normal);
-
-				float4 clipPos = TransformWorldToHClip( ApplyShadowBias( positionWS, normalWS, _LightDirection ) );
-
-				#if UNITY_REVERSED_Z
-					clipPos.z = min(clipPos.z, clipPos.w * UNITY_NEAR_CLIP_VALUE);
-				#else
-					clipPos.z = max(clipPos.z, clipPos.w * UNITY_NEAR_CLIP_VALUE);
-				#endif
-				o.clipPos = clipPos;
-
-				return o;
-			}
-
-			half4 ShadowPassFragment(VertexOutput IN  ) : SV_TARGET
-			{
-				UNITY_SETUP_INSTANCE_ID( IN );
-
-				
-				float Alpha = 1;
-				float AlphaClipThreshold = 0.5;
-
-				#if _AlphaClip
-					clip(Alpha - AlphaClipThreshold);
-				#endif
-
-				#ifdef LOD_FADE_CROSSFADE
-					LODDitheringTransition( IN.clipPos.xyz, unity_LODFade.x );
-				#endif
-				return 0;
-			}
-
-			ENDHLSL
-		}
-
-		
-		Pass
-		{
-			
 			Name "DepthOnly"
 			Tags { "LightMode"="DepthOnly" }
 
@@ -473,7 +364,8 @@ Shader "ShipBattle/TerrainFirstPass"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 
-			
+			#define ASE_NEEDS_VERT_NORMAL
+
 
 			CBUFFER_START( UnityPerMaterial )
 			float4 _SandColor;
@@ -596,7 +488,8 @@ Shader "ShipBattle/TerrainFirstPass"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/UnityInstancing.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			
-			
+			#define ASE_NEEDS_VERT_NORMAL
+
 
 			CBUFFER_START( UnityPerMaterial )
 			float4 _SandColor;
@@ -681,23 +574,23 @@ Shader "ShipBattle/TerrainFirstPass"
 
 }
 /*ASEBEGIN
-Version=17500
-0;642;1348;357;1594.062;226.6156;1.375237;True;False
+Version=18100
+-1458.4;116.8;1349;537;1594.75;350.3869;1.375237;True;False
 Node;AmplifyShaderEditor.WorldNormalVector;16;-1429.711,-11.10502;Inherit;False;False;1;0;FLOAT3;0,0,1;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
-Node;AmplifyShaderEditor.Vector3Node;21;-1418.396,151.9451;Inherit;False;Constant;_Vector0;Vector 0;2;0;Create;True;0;0;False;0;0,1,0;0,0,0;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
+Node;AmplifyShaderEditor.Vector3Node;21;-1418.396,151.9451;Inherit;False;Constant;_Vector0;Vector 0;2;0;Create;True;0;0;False;0;False;0,1,0;0,0,0;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.LerpOp;22;-1189.285,1.159503;Inherit;False;3;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.BreakToComponentsNode;23;-1038.21,-0.1292477;Inherit;False;FLOAT3;1;0;FLOAT3;0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
 Node;AmplifyShaderEditor.SaturateNode;17;-797.3851,23.48433;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.ColorNode;5;-912.3221,-409.2937;Inherit;False;Property;_SandColor;Sand Color;0;0;Create;True;0;0;False;0;0.8207547,0.7096044,0.4839356,1;0.8207547,0.7096044,0.4839356,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.ColorNode;11;-909.5491,-232.3628;Inherit;False;Property;_TopColor;Top Color;1;0;Create;True;0;0;False;0;0.3775365,0.7924528,0.4121128,1;0.3775365,0.7924528,0.4121128,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ColorNode;5;-912.3221,-409.2937;Inherit;False;Property;_SandColor;Sand Color;0;0;Create;True;0;0;False;0;False;0.8207547,0.7096044,0.4839356,1;0.8207547,0.7096044,0.4839355,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ColorNode;11;-909.5491,-232.3628;Inherit;False;Property;_TopColor;Top Color;1;0;Create;True;0;0;False;0;False;0.3775365,0.7924528,0.4121128,1;0.9150943,0.8181241,0.617257,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RoundOpNode;25;-597.6311,28.50601;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;9;-157.6268,89.73048;Inherit;False;Constant;_Float0;Float 0;0;0;Create;True;0;0;False;0;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;9;-157.6268,89.73048;Inherit;False;Constant;_Float0;Float 0;0;0;Create;True;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.LerpOp;18;-365.2189,-21.13783;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;9;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ShadowCaster;0;1;ShadowCaster;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;2;0;False;False;False;False;False;False;True;1;False;-1;True;3;False;-1;False;True;1;LightMode=ShadowCaster;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;2;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;9;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;DepthOnly;0;2;DepthOnly;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;2;0;False;False;False;False;True;False;False;False;False;0;False;-1;False;True;1;False;-1;False;False;True;1;LightMode=DepthOnly;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;3;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;9;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;Meta;0;3;Meta;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;2;0;False;False;False;True;2;False;-1;False;False;False;False;False;True;1;LightMode=Meta;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;4;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;9;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;Universal2D;0;4;Universal2D;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;2;0;True;0;1;False;-1;0;False;-1;1;1;False;-1;0;False;-1;False;False;False;True;True;True;True;True;0;False;-1;False;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;1;LightMode=Universal2D;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;0;0,0;Float;False;True;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;3;ShipBattle/TerrainFirstPass;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;0;Forward;12;False;False;False;True;0;False;-1;False;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=-100;SplatCount=4;True;2;0;True;0;1;False;-1;0;False;-1;1;1;False;-1;0;False;-1;False;False;False;True;True;True;True;True;0;False;-1;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;1;LightMode=UniversalForward;False;0;Hidden/InternalErrorShader;1;BaseMapShader=ASESampleShaders/SimpleTerrainBase;0;Standard;12;Workflow;1;Surface;0;  Blend;0;Two Sided;1;Cast Shadows;1;Receive Shadows;1;GPU Instancing;1;LOD CrossFade;1;Built-in Fog;1;Meta Pass;1;Override Baked GI;0;Vertex Position,InvertActionOnDeselection;1;0;5;True;True;True;True;True;False;;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;3;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ShadowCaster;0;1;ShadowCaster;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;2;0;False;False;False;False;False;False;True;1;False;-1;True;3;False;-1;False;True;1;LightMode=ShadowCaster;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;2;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;3;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;DepthOnly;0;2;DepthOnly;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;2;0;False;False;False;False;True;False;False;False;False;0;False;-1;False;True;1;False;-1;False;False;True;1;LightMode=DepthOnly;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;3;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;3;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;Meta;0;3;Meta;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;2;0;False;False;False;True;2;False;-1;False;False;False;False;False;True;1;LightMode=Meta;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;4;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;3;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;Universal2D;0;4;Universal2D;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;2;0;True;0;1;False;-1;0;False;-1;1;1;False;-1;0;False;-1;False;False;False;True;True;True;True;True;0;False;-1;False;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;1;LightMode=Universal2D;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;0;0,0;Float;False;True;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;3;ShipBattle/TerrainFirstPass;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;0;Forward;12;False;False;False;True;0;False;-1;False;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=-100;SplatCount=4;True;2;0;True;0;1;False;-1;0;False;-1;1;1;False;-1;0;False;-1;False;False;False;True;True;True;True;True;0;False;-1;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;1;LightMode=UniversalForward;False;0;Hidden/InternalErrorShader;1;BaseMapShader=ASESampleShaders/SimpleTerrainBase;0;Standard;12;Workflow;1;Surface;0;  Blend;0;Two Sided;1;Cast Shadows;0;Receive Shadows;1;GPU Instancing;1;LOD CrossFade;1;Built-in Fog;1;Meta Pass;1;Override Baked GI;0;Vertex Position,InvertActionOnDeselection;1;0;5;True;False;True;True;True;False;;0
 WireConnection;22;0;16;0
 WireConnection;22;1;21;0
 WireConnection;23;0;22;0
@@ -709,4 +602,4 @@ WireConnection;18;2;25;0
 WireConnection;0;0;18;0
 WireConnection;0;4;9;0
 ASEEND*/
-//CHKSM=E12F0B972F5186DF71DB5ACC01F2806E9983D0A2
+//CHKSM=867559F01DABD4044C8F3B3E809CA4AF55C26636

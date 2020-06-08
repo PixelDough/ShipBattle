@@ -94,6 +94,9 @@ MonoBehaviour:
   floatOnWater: 1
   maxHealth: 1
   explodeOnCollision: 1
+  ignoreExplosionWhenCollidingLayers:
+    serializedVersion: 2
+    m_Bits: 1024
   combustable: 0
   combustionTime: 5
   deathParticle: {fileID: 0}

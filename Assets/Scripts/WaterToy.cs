@@ -16,6 +16,7 @@ public class WaterToy : MonoBehaviour
 
     [Header("Fire")]
     public bool explodeOnCollision = false;
+    public LayerMask ignoreExplosionWhenCollidingLayers;
     public bool combustable = false;
     public float combustionTime = 5f;
     private bool isOnFire = false;
@@ -57,7 +58,7 @@ public class WaterToy : MonoBehaviour
 
     private void Update()
     {
-
+        //ScreenWrap();
         if (transform.position.y < 0)
         {
             isInWater = true;
@@ -155,39 +156,18 @@ public class WaterToy : MonoBehaviour
 
     void ScreenWrap()
     {
-        var isVisible = CheckRenderers();
-
-        if (isVisible)
+        Vector3 originalPosition = transform.position;
+        Vector3 screenPosition = Camera.main.WorldToViewportPoint(transform.position);
+        if (screenPosition.x > 1)
         {
-            isWrappingX = false;
-            isWrappingY = false;
-            return;
+            Vector3 e = Camera.main.ViewportToWorldPoint(new Vector3(0, screenPosition.y, screenPosition.z));
+            transform.position = new Vector3(e.x, transform.position.y, transform.position.z);
         }
-
-        if (isWrappingX && isWrappingY)
+        if (screenPosition.x < 0)
         {
-            return;
+            Vector3 e = Camera.main.ViewportToWorldPoint(new Vector3(1, screenPosition.y, screenPosition.z));
+            transform.position = new Vector3(e.x, transform.position.y, transform.position.z);
         }
-
-        var cam = Camera.main;
-        var viewportPosition = cam.WorldToViewportPoint(transform.position);
-        var newPosition = transform.position;
-
-        if (!isWrappingX && (viewportPosition.x > 1 || viewportPosition.x < 0))
-        {
-            newPosition.x = -newPosition.x;
-
-            isWrappingX = true;
-        }
-
-        if (!isWrappingY && (viewportPosition.y > 1 || viewportPosition.y < 0))
-        {
-            newPosition.y = -newPosition.y;
-
-            isWrappingY = true;
-        }
-
-        transform.position = newPosition;
     }
 
 
@@ -276,9 +256,17 @@ public class WaterToy : MonoBehaviour
     {
         if (ignoreCollisionsList.Contains(collision.collider.attachedRigidbody)) return;
 
-        if (explodeOnCollision)
+        if (ignoreExplosionWhenCollidingLayers.value != 1 << collision.gameObject.layer)
         {
-            Damage();
+
+
+            //rb.AddExplosionForce(2000f, collision.contacts[0].point, 1f);
+            //return;
+
+            if (explodeOnCollision)
+            {
+                Damage();
+            }
         }
     }
 

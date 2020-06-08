@@ -96,7 +96,21 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     private IEnumerator _UpdateData()
     {
         if (Application.isPlaying) {
-            
+
+            if (playerState != PlayerState.Selected)
+            {
+                int shipCheck = selectedShip;
+                for (int i = 0; i < GameManager.Instance.shipTypes.Length; i++)
+                {
+                    if (GameManager.Instance.shipsOccupied.Contains(shipCheck))
+                    {
+                        shipCheck = (int)Mathf.Repeat(shipCheck + 1, GameManager.Instance.shipTypes.Length);
+                    }
+                }
+                selectedShip = shipCheck;
+            }
+
+
             flagImage.sprite = GameManager.Instance.shipTypes[selectedShip].flagSprite;
             //shipName.text = TranslationManager.Instance.TranslatedString(GameManager.Instance.shipTypes[selectedShip].characterName);
 
@@ -115,7 +129,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
         if (Application.isPlaying)
         {
 
-            
+            UpdateData();
 
             //shipName.transform.rotation = Quaternion.Lerp(shipName.transform.rotation, Quaternion.identity, 10 * Time.deltaTime);
 
@@ -140,7 +154,17 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                             nameSignSwingJoint.LeanRotateZ(0, 2f).setEaseOutElastic().setDelay(0.1f);
                         }
 
-                        selectedShip = (int)Mathf.Repeat(selectedShip + inputDirection, GameManager.Instance.shipTypes.Length);
+                        int shipCheck = selectedShip;
+                        for (int i = 0; i < GameManager.Instance.shipTypes.Length; i++)
+                        {
+                            shipCheck = (int)Mathf.Repeat(shipCheck + inputDirection, GameManager.Instance.shipTypes.Length);
+                            if (!GameManager.Instance.shipsOccupied.Contains(shipCheck))
+                            {
+                                selectedShip = shipCheck;
+                                break;
+                            }
+                        }
+                        selectedShip = shipCheck;
                         GameManager.Instance.GetPlayer(playerID).shipType = selectedShip;
                         UpdateData();
                     }

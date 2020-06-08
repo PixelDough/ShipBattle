@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
+using UnityEngine.SceneManagement;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
 
     public PlayerController shipPrefab;
@@ -12,11 +13,23 @@ public class GameManager : Singleton<GameManager>
     float spawnTime = 0f;
     int shipCount = 0;
     public PlayerData[] playersPlaying = new PlayerData[4];
-    
+    public List<int> shipsOccupied = new List<int>();
+
+    public static GameManager Instance;
+
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(this.gameObject);
+    }
+
 
     private void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+
+        
 
         spawnTime = Time.time + 0.5f;
 
@@ -26,11 +39,17 @@ public class GameManager : Singleton<GameManager>
         //}
     }
 
+    private void OnLevelWasLoaded(int level)
+    {
+        shipCount = 0;
+        spawnTime = Time.time + 0.5f;
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log(playersPlaying[2].shipType);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         // GAMEPLAY SPAWNING CODE
@@ -92,6 +111,7 @@ public class GameManager : Singleton<GameManager>
     {
         for (int i = 0; i < playersPlaying.Length; i++)
         {
+            if (playersPlaying[i] == null) continue;
             if (playersPlaying[i].controllerID == _controllerID) return playersPlaying[i];
 
         }

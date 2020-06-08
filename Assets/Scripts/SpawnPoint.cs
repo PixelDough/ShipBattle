@@ -5,11 +5,17 @@ using UnityEngine;
 public class SpawnPoint : MonoBehaviour
 {
 
-    public static List<SpawnPoint> spawnPoints;
+    public static List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
 
-    private void Start()
+    private void Awake()
     {
-        if (spawnPoints == null)
+        if (spawnPoints.Count > 0)
+            spawnPoints.Clear();
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if (spawnPoints.Count <= 0)
         {
             spawnPoints = new List<SpawnPoint>();
         }

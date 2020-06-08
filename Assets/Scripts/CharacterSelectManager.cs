@@ -46,7 +46,11 @@ public class CharacterSelectManager : MonoBehaviour
                     if (pps.playerID == p.id)
                     {
                         isAlreadyIn = true;
-                        if (pps.playerState != UI_PlayerProfileSelector.PlayerState.Selected) pps.playerState = UI_PlayerProfileSelector.PlayerState.Selected;
+                        if (pps.playerState != UI_PlayerProfileSelector.PlayerState.Selected)
+                        {
+                            pps.playerState = UI_PlayerProfileSelector.PlayerState.Selected;
+                            GameManager.Instance.shipsOccupied.Add(pps.selectedShip);
+                        }
                         break;
                     }
 
@@ -96,6 +100,7 @@ public class CharacterSelectManager : MonoBehaviour
                         if (pps.playerState == UI_PlayerProfileSelector.PlayerState.Selected)
                         {
                             pps.playerState = UI_PlayerProfileSelector.PlayerState.Active;
+                            GameManager.Instance.shipsOccupied.Remove(pps.selectedShip);
                             break;
                         }
                         else
