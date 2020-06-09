@@ -52,3 +52,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3847ac596fe13b945943976acd5d73ac, type: 2}
   - {fileID: 11400000, guid: ca23867d0289dad4e92fc2d7f1e0bf9f, type: 2}
   - {fileID: 11400000, guid: 0cab17e0c0ca83044ac1b9dc20a552c3, type: 2}
+  shipsOccupied: 
+  screenTransition: {fileID: 791279891431487018, guid: c96e095e05101ba409ae5941904448ac,
+    type: 3}

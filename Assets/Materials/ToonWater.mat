@@ -81,14 +81,15 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _TransitionProgress: 1
-    - _TransitionScale: 1
+    - _TransitionScale: 0.35
+    - _TransitionScrollSpeed: 0.1
     - _WorkflowMode: 1
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _DepthGradientDeep: {r: 0.2688677, g: 0.8600299, b: 1, a: 0.74509805}
+    - _DepthGradientDeep: {r: 0.26886767, g: 0.8600299, b: 1, a: 0.74509805}
     - _DepthGradientShallow: {r: 0.22352941, g: 0.8, b: 1, a: 0.7254902}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainTex: {r: 0, g: 0, b: 0, a: 0}

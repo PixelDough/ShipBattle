@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     public PlayerData[] playersPlaying = new PlayerData[4];
     public List<int> shipsOccupied = new List<int>();
 
+    [Header("Scene Changing")]
+    public ScreenTransition screenTransition;
+
     public static GameManager Instance;
 
 
@@ -33,9 +36,12 @@ public class GameManager : MonoBehaviour
 
         spawnTime = Time.time + 0.5f;
 
-        //foreach (Player p in ReInput.players.GetPlayers())
+        //if (shipsOccupied.Count <= 0)
         //{
-        //    if (p.controllers.joystickCount > 0 || p.controllers.hasKeyboard) playersPlaying.Add(new PlayerData(p.id));
+        //    foreach (Player p in ReInput.players.GetPlayers())
+        //    {
+        //        if (p.controllers.joystickCount > 0 || p.controllers.hasKeyboard) AddPlayer(p.id, p.id);
+        //    }
         //}
     }
 
@@ -49,11 +55,11 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            ChangeScenes(SceneManager.GetActiveScene().name);
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("Player Select");
+            ChangeScenes("Player Select");
         }
 
         // GAMEPLAY SPAWNING CODE
@@ -67,6 +73,7 @@ public class GameManager : MonoBehaviour
         }
         if (SpawnPoint.spawnPoints.Count > 0 && shipCount < finalPlayers.Count)
         {
+            
             if (Time.time >= spawnTime)
             {
                 // Pick a random spawn point
@@ -76,21 +83,23 @@ public class GameManager : MonoBehaviour
                 SpawnPoint.spawnPoints.Remove(point);
 
                 // Spawn a player ship at spawn point
-                PlayerController playerShip = Instantiate(shipPrefab, point.transform.position, point.transform.rotation);
+                if (point != null)
+                {
+                    PlayerController playerShip = Instantiate(shipPrefab, point.transform.position, point.transform.rotation);
 
-                // Set ship variables
-                // Set the player data
-                playerShip.playerData = finalPlayers[shipCount];
+                    // Set ship variables
+                    // Set the player data
+                    playerShip.playerData = finalPlayers[shipCount];
 
-                // Spawn poof particle
-                Object poof = Resources.Load("Poof Particle");
-                Instantiate(poof, point.transform.position, Quaternion.identity);
+                    // Spawn poof particle
+                    Object poof = Resources.Load("Poof Particle");
+                    Instantiate(poof, point.transform.position, Quaternion.identity);
 
-                // Increment the shipCount variable
-                shipCount++;
+                    // Increment the shipCount variable
+                    shipCount++;
 
-                spawnTime = Time.time + 0.5f;
-
+                    spawnTime = Time.time + 0.5f;
+                }
             }
         }
 
@@ -134,6 +143,12 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void ChangeScenes(string sceneName)
+    {
+        if (FindObjectsOfType<ScreenTransition>().Length < 1)
+            Instantiate(screenTransition).targetSceneName = sceneName;
     }
 
     public class PlayerData

@@ -195,6 +195,8 @@ public class WaterToy : MonoBehaviour
 
         foreach (Collider c1 in GetComponentsInChildren<Collider>())
         {
+            if (_rigidbody == null) continue;
+
             foreach (Collider c2 in _rigidbody.GetComponentsInChildren<Collider>())
             {
                 Physics.IgnoreCollision(c1, c2, false);

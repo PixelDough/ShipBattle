@@ -16,6 +16,8 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     //public int selectedShip;
     public Image flagImage;
     public TMPro.TextMeshProUGUI shipName;
+    public MeshRenderer shipBodyRenderer;
+    public RectTransform tinyShipImage;
 
     public RectTransform inactiveSign; 
     public Image inactiveCover; 
@@ -49,8 +51,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     private void Start()
     {
         nameSignImage.LeanScaleY(0, 0f);
-
-
+        tinyShipImage.LeanScaleX(0, 0f);
 
         UpdateData();
     }
@@ -67,6 +68,9 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                 nameSignImage.LeanCancel();
                 nameSignImage.LeanScaleY(0, 0.2f).setEase(LeanTweenType.easeInOutCubic);
 
+                tinyShipImage.LeanCancel();
+                tinyShipImage.LeanScaleX(0.0f, 0.1f);
+
                 inactiveCover.enabled = true;
                 break;
             case PlayerState.Active:
@@ -79,13 +83,26 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                 readyBar.LeanCancel();
                 readyBar.LeanSize(new Vector2(readyBar.rect.size.x, 0), 0.25f).setEase(LeanTweenType.easeOutCubic);
 
+                tinyShipImage.LeanCancel();
+                tinyShipImage.LeanScale(new Vector3(0.5f, 0.5f, 1f), 0.1f);
+
                 inactiveCover.enabled = false;
                 break;
             case PlayerState.Selected:
 
+                inactiveSign.LeanCancel();
+                inactiveSign.LeanScaleY(0, 0.2f).setEase(LeanTweenType.easeInOutCubic);
+
+                nameSignImage.LeanCancel();
+                nameSignImage.LeanScaleY(1, 1f).setEase(LeanTweenType.easeOutBounce);
+
                 readyBar.LeanCancel();
                 readyBar.LeanSize(new Vector2(readyBar.rect.size.x, 100), 0.25f).setEase(LeanTweenType.easeInCubic);
 
+                tinyShipImage.LeanCancel();
+                tinyShipImage.LeanScale(new Vector3(0.75f, 0.75f, 1f), 0.1f);
+
+                inactiveCover.enabled = false;
                 break;
         }
     }
@@ -99,6 +116,8 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     private IEnumerator _UpdateData()
     {
         if (Application.isPlaying) {
+
+            shipBodyRenderer.material.SetColor("_BaseColor", GameManager.Instance.shipTypes[localPlayerData.shipType].color);
 
             if (playerState != PlayerState.Selected)
             {
@@ -121,6 +140,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
             var async = GameManager.Instance.shipTypes[localPlayerData.shipType].localName.GetLocalizedString();
             while (!async.IsDone) { yield return null; }
             shipName.text = async.Result;
+
         }
         yield return null;
     }

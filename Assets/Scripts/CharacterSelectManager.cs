@@ -25,11 +25,17 @@ public class CharacterSelectManager : MonoBehaviour
 
         GameManager.Instance.shipsOccupied.Clear();
 
+        for(int i = 0; i < playerProfileSelectors.Count; i++)
+        {
+            playerProfileSelectors[i].localPlayerData.shipType = i;
+        }
+
         foreach (GameManager.PlayerData p in GameManager.Instance.playersPlaying)
         {
             if (p == null) continue;
             playerProfileSelectors[p.playerSlot].controllerID = p.controllerID;
             playerProfileSelectors[p.playerSlot].localPlayerData = p;
+            playerProfileSelectors[p.playerSlot].playerState = UI_PlayerProfileSelector.PlayerState.Selected;
             //playerProfileSelectors[p.playerSlot].UpdateData();
             //playerProfileSelectors[p.playerID].selectedShip = GameManager.Instance.shipTypes[p.shipType];
         }
@@ -61,7 +67,7 @@ public class CharacterSelectManager : MonoBehaviour
                 }
                 if (startBattle)
                 {
-                    if (playerReadyCount > 0) SceneManager.LoadScene("Game");
+                    if (playerReadyCount > 1) GameManager.Instance.ChangeScenes("Game");
                 }
             }
 

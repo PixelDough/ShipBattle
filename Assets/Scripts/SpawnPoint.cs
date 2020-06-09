@@ -9,8 +9,13 @@ public class SpawnPoint : MonoBehaviour
 
     private void Awake()
     {
-        if (spawnPoints.Count > 0)
-            spawnPoints.Clear();
+        if (spawnPoints.Count <= 0)
+        {
+            spawnPoints = new List<SpawnPoint>();
+        }
+
+        if (!spawnPoints.Contains(this))
+            spawnPoints.Add(this);
     }
     
     private void OnLevelWasLoaded(int level)
@@ -20,7 +25,8 @@ public class SpawnPoint : MonoBehaviour
             spawnPoints = new List<SpawnPoint>();
         }
 
-        spawnPoints.Add(this);
+        if (!spawnPoints.Contains(this))
+            spawnPoints.Add(this);
     }
 
 
