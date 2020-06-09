@@ -12,7 +12,7 @@ public class SpawnPoint : MonoBehaviour
         if (spawnPoints.Count > 0)
             spawnPoints.Clear();
     }
-
+    
     private void OnLevelWasLoaded(int level)
     {
         if (spawnPoints.Count <= 0)

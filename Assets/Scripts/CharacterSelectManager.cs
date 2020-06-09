@@ -23,11 +23,17 @@ public class CharacterSelectManager : MonoBehaviour
         //    if (p.controllers.joystickCount > 0 || p.controllers.hasKeyboard) GameManager.Instance.playersPlaying.Add(new GameManager.PlayerData(p.id));
         //}
 
-        //foreach (GameManager.PlayerData p in GameManager.Instance.playersPlaying)
-        //{
-        //    playerProfileSelectors[p.playerID].playerID = p.playerID;
-        //    //playerProfileSelectors[p.playerID].selectedShip = GameManager.Instance.shipTypes[p.shipType];
-        //}
+        GameManager.Instance.shipsOccupied.Clear();
+
+        foreach (GameManager.PlayerData p in GameManager.Instance.playersPlaying)
+        {
+            if (p == null) continue;
+            playerProfileSelectors[p.playerSlot].controllerID = p.controllerID;
+            playerProfileSelectors[p.playerSlot].localPlayerData = p;
+            //playerProfileSelectors[p.playerSlot].UpdateData();
+            //playerProfileSelectors[p.playerID].selectedShip = GameManager.Instance.shipTypes[p.shipType];
+        }
+
     }
 
 
@@ -36,6 +42,29 @@ public class CharacterSelectManager : MonoBehaviour
         
         foreach(Player p in ReInput.players.GetPlayers())
         {
+            if (p.GetButtonDown(RewiredConsts.Action.Start))
+            {
+                bool startBattle = true;
+                int playerReadyCount = 0;
+                foreach (UI_PlayerProfileSelector pps in playerProfileSelectors)
+                {
+                    if (pps.controllerID == -1) continue;
+                    if (pps.playerState != UI_PlayerProfileSelector.PlayerState.Selected)
+                    {
+                        startBattle = false;
+                        break;
+                    }
+                    else
+                    {
+                        playerReadyCount++;
+                    }
+                }
+                if (startBattle)
+                {
+                    if (playerReadyCount > 0) SceneManager.LoadScene("Game");
+                }
+            }
+
             // Player Joining
             if (p.GetButtonDown(RewiredConsts.Action.MenuSelect))
             {
@@ -43,18 +72,18 @@ public class CharacterSelectManager : MonoBehaviour
                 UI_PlayerProfileSelector firstEmptySlot = default;
                 foreach(UI_PlayerProfileSelector pps in playerProfileSelectors)
                 {
-                    if (pps.playerID == p.id)
+                    if (pps.controllerID == p.id)
                     {
                         isAlreadyIn = true;
                         if (pps.playerState != UI_PlayerProfileSelector.PlayerState.Selected)
                         {
                             pps.playerState = UI_PlayerProfileSelector.PlayerState.Selected;
-                            GameManager.Instance.shipsOccupied.Add(pps.selectedShip);
+                            GameManager.Instance.shipsOccupied.Add(pps.localPlayerData.shipType);
                         }
                         break;
                     }
 
-                    if (pps.playerID == -1 && firstEmptySlot == default)
+                    if (pps.controllerID == -1 && firstEmptySlot == default)
                         firstEmptySlot = pps;
                 }
 
@@ -62,31 +91,13 @@ public class CharacterSelectManager : MonoBehaviour
                 {
                     if (firstEmptySlot != default)
                     {
-                        firstEmptySlot.playerID = p.id;
+                        firstEmptySlot.controllerID = p.id;
                         //firstEmptySlot.playerData = new GameManager.PlayerData(p.id);
                         //GameManager.Instance.playersPlaying.Add(firstEmptySlot.playerData);
 
-                        GameManager.Instance.AddPlayer(p.id, firstEmptySlot.selectedShip);
-                        firstEmptySlot.playerData = GameManager.Instance.GetPlayer(p.id);
+                        GameManager.Instance.AddPlayer(p.id, firstEmptySlot.localPlayerData.shipType);
+                        firstEmptySlot.localPlayerData = GameManager.Instance.GetPlayer(p.id);
                     }
-                }
-            }
-
-            if (p.GetButtonDown(RewiredConsts.Action.Start))
-            {
-                bool startBattle = true;
-                foreach (UI_PlayerProfileSelector pps in playerProfileSelectors)
-                {
-                    if (pps.playerID == -1) continue;
-                    if (pps.playerState != UI_PlayerProfileSelector.PlayerState.Selected)
-                    {
-                        startBattle = false;
-                        break;
-                    }
-                }
-                if (startBattle)
-                {
-                    SceneManager.LoadScene("Game");
                 }
             }
 
@@ -95,17 +106,17 @@ public class CharacterSelectManager : MonoBehaviour
             {
                 foreach (UI_PlayerProfileSelector pps in playerProfileSelectors)
                 {
-                    if (pps.playerID == p.id)
+                    if (pps.controllerID == p.id)
                     {
                         if (pps.playerState == UI_PlayerProfileSelector.PlayerState.Selected)
                         {
                             pps.playerState = UI_PlayerProfileSelector.PlayerState.Active;
-                            GameManager.Instance.shipsOccupied.Remove(pps.selectedShip);
+                            GameManager.Instance.shipsOccupied.Remove(pps.localPlayerData.shipType);
                             break;
                         }
                         else
                         {
-                            pps.playerID = -1;
+                            pps.controllerID = -1;
                             //GameManager.Instance.playersPlaying.Remove(pps.playerData);
                             GameManager.Instance.RemovePlayer(p.id);
                             break;

@@ -204,6 +204,11 @@ public class WaterToy : MonoBehaviour
         yield return null;
     }
 
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
+
     private void FixedUpdate()
     {
 

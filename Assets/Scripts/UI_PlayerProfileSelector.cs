@@ -12,8 +12,8 @@ using UnityEngine.Localization.Settings;
 public class UI_PlayerProfileSelector : MonoBehaviour
 {
     [Range(-1, 3)]
-    public int playerID = -1;
-    public int selectedShip;
+    public int controllerID = -1;
+    //public int selectedShip;
     public Image flagImage;
     public TMPro.TextMeshProUGUI shipName;
 
@@ -23,7 +23,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     public RectTransform nameSignImage;
     public RectTransform readyBar;
 
-    public GameManager.PlayerData playerData;
+    public GameManager.PlayerData localPlayerData = new GameManager.PlayerData(-1, -1, 0);
 
     private Player p;
 
@@ -49,6 +49,9 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     private void Start()
     {
         nameSignImage.LeanScaleY(0, 0f);
+
+
+
         UpdateData();
     }
 
@@ -88,7 +91,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     }
 
 
-    private void UpdateData()
+    public void UpdateData()
     {
         StartCoroutine(_UpdateData());
     }
@@ -99,7 +102,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
 
             if (playerState != PlayerState.Selected)
             {
-                int shipCheck = selectedShip;
+                int shipCheck = localPlayerData.shipType;
                 for (int i = 0; i < GameManager.Instance.shipTypes.Length; i++)
                 {
                     if (GameManager.Instance.shipsOccupied.Contains(shipCheck))
@@ -107,15 +110,15 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                         shipCheck = (int)Mathf.Repeat(shipCheck + 1, GameManager.Instance.shipTypes.Length);
                     }
                 }
-                selectedShip = shipCheck;
+                localPlayerData.shipType = shipCheck;
             }
 
 
-            flagImage.sprite = GameManager.Instance.shipTypes[selectedShip].flagSprite;
+            flagImage.sprite = GameManager.Instance.shipTypes[localPlayerData.shipType].flagSprite;
             //shipName.text = TranslationManager.Instance.TranslatedString(GameManager.Instance.shipTypes[selectedShip].characterName);
 
             yield return LocalizationSettings.InitializationOperation;
-            var async = GameManager.Instance.shipTypes[selectedShip].localName.GetLocalizedString();
+            var async = GameManager.Instance.shipTypes[localPlayerData.shipType].localName.GetLocalizedString();
             while (!async.IsDone) { yield return null; }
             shipName.text = async.Result;
         }
@@ -133,10 +136,10 @@ public class UI_PlayerProfileSelector : MonoBehaviour
 
             //shipName.transform.rotation = Quaternion.Lerp(shipName.transform.rotation, Quaternion.identity, 10 * Time.deltaTime);
 
-            if (p == null || (p.id != playerID))
+            if (p == null || (p.id != controllerID))
             {
-                if (playerID >= 0 && playerID < 4)
-                    p = ReInput.players.GetPlayer(playerID);
+                if (controllerID >= 0 && controllerID < 4)
+                    p = ReInput.players.GetPlayer(controllerID);
             }
             else
             {
@@ -146,7 +149,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
 
                     if (inputDirection != 0)
                     {
-                        if (true || selectedShip != Mathf.Clamp(selectedShip + inputDirection, 0, GameManager.Instance.shipTypes.Length - 1))
+                        if (true || localPlayerData.shipType != Mathf.Clamp(localPlayerData.shipType + inputDirection, 0, GameManager.Instance.shipTypes.Length - 1))
                         {
                             //nameSignSwingJoint.Rotate(Vector3.forward, 5 * inputDirection);
                             nameSignSwingJoint.LeanCancel();
@@ -154,24 +157,24 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                             nameSignSwingJoint.LeanRotateZ(0, 2f).setEaseOutElastic().setDelay(0.1f);
                         }
 
-                        int shipCheck = selectedShip;
+                        int shipCheck = localPlayerData.shipType;
                         for (int i = 0; i < GameManager.Instance.shipTypes.Length; i++)
                         {
                             shipCheck = (int)Mathf.Repeat(shipCheck + inputDirection, GameManager.Instance.shipTypes.Length);
                             if (!GameManager.Instance.shipsOccupied.Contains(shipCheck))
                             {
-                                selectedShip = shipCheck;
+                                localPlayerData.shipType = shipCheck;
                                 break;
                             }
                         }
-                        selectedShip = shipCheck;
-                        GameManager.Instance.GetPlayer(playerID).shipType = selectedShip;
+                        localPlayerData.shipType = shipCheck;
+                        GameManager.Instance.GetPlayer(controllerID).shipType = localPlayerData.shipType;
                         UpdateData();
                     }
                 }
             }
 
-            if (playerID >= 0)
+            if (controllerID >= 0)
             {
                 if (playerState == PlayerState.Inactive) playerState = PlayerState.Active;
             }
