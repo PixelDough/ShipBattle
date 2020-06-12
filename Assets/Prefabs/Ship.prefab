@@ -37,6 +37,7 @@ Transform:
   - {fileID: 6897867200844453350}
   - {fileID: 1263729232428163665}
   - {fileID: 4874533632640501209}
+  - {fileID: 4875822338460730706}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,6 +79,7 @@ MonoBehaviour:
   - {fileID: 7397256906113550601}
   - {fileID: 2054510804591174793}
   - {fileID: 8731076489302500667}
+  shootSoundEmitter: {fileID: 8703864465069612016}
 --- !u!114 &2644652055312585630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4854,6 +4856,60 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1 &1725176778250316711
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4875822338460730706}
+  - component: {fileID: 8703864465069612016}
+  m_Layer: 0
+  m_Name: FMOD Shoot Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4875822338460730706
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725176778250316711}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 258206626901313461}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8703864465069612016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725176778250316711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/SFX/SHIP/sfx_ship_shoot
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &4230155143461225502
 GameObject:
   m_ObjectHideFlags: 0
@@ -9618,6 +9674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2412172423230069745}
   - component: {fileID: 6878114995459862255}
+  - component: {fileID: 2904261895274099264}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -9648,10 +9705,24 @@ SphereCollider:
   m_GameObject: {fileID: 4355277411025084782}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.8
+  m_Radius: 0.75
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &2904261895274099264
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4355277411025084782}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.42
+  m_Height: 1.97
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.27, z: 0.16}
 --- !u!1 &4707581239465007929
 GameObject:
   m_ObjectHideFlags: 0

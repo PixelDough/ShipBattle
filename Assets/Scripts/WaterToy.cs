@@ -17,6 +17,8 @@ public class WaterToy : MonoBehaviour
     [Header("Fire")]
     public bool explodeOnCollision = false;
     public LayerMask ignoreExplosionWhenCollidingLayers;
+    public delegate void ExplodeEvent();
+    public ExplodeEvent explodeEvent;
     public bool combustable = false;
     public float combustionTime = 5f;
     private bool isOnFire = false;
@@ -292,6 +294,10 @@ public class WaterToy : MonoBehaviour
         //        }
         //    }
         //}
+
+        if (explodeEvent != null)
+            if (explodeEvent.GetInvocationList().Length > 0)
+                explodeEvent();
 
         FindObjectOfType<ScreenShake>().Shake();
         Instantiate(deathParticle, transform.position + Vector3.up * 0.2f, Quaternion.identity);

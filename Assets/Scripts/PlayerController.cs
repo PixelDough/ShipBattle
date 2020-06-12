@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem[] waterParticles;
     bool waterParticlesPlaying = false;
 
+    [Header("FMOD")]
+    public FMODUnity.StudioEventEmitter shootSoundEmitter;
+
     Player player;
     Rigidbody rb;
 
@@ -38,6 +41,8 @@ public class PlayerController : MonoBehaviour
          * Color Choices:
          * 801400
          */
+
+        waterToy.explodeEvent += Explode;
 
         
     }
@@ -89,6 +94,8 @@ public class PlayerController : MonoBehaviour
                 //cbDirection = cbDirection == transform.right ? -transform.right : transform.right;
             }
 
+            shootSoundEmitter.Play();
+
             Cannonball cb = Instantiate(cannonballPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity).GetComponent<Cannonball>();
             cb.GetComponent<WaterToy>().SetIgnoreCollisions(rb, true);
             cb.GetComponent<WaterToy>().ResetIgnoreCollisions(rb, 1f);
@@ -107,6 +114,13 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+
+    private void Explode()
+    {
+        GameplayManager.Instance.ShipDie();
+    }
+
 
 
     private void OnCollisionEnter(Collision collision)

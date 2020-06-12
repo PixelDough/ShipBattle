@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.00.00">
 	<object class="Event" id="{9fd59f0a-7039-4b43-9ddc-8e68cae6ced7}">
 		<property name="name">
-			<value>WaveSplash</value>
+			<value>sfx_water_waveSplash</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{ba91ec1a-c388-43fd-b9cf-21be3fcf9c23}</destination>
+			<destination>{a4fdaa64-a919-4c66-b495-1cc83e083c78}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{396a5ad1-4fa3-4ce8-ac19-31f17d7235b4}</destination>

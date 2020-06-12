@@ -1,5 +1,123 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8804811938728574126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/WATER/sfx_water_waveSplash
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/WATER/sfx_water_waveSplash
+  guid: 0a9fd59f3970434b9ddc8e68cae6ced7
+  Banks:
+  - {fileID: -8585533443484259687}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1882
+--- !u!114 &-8585533443484259687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637275205999450899
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-6226987464273469587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SHIP/sfx_ship_shoot
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SHIP/sfx_ship_shoot
+  guid: 7b5f46e7123b14459387dd32ed7459ec
+  Banks:
+  - {fileID: -8585533443484259687}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 2010
+--- !u!114 &-4093886586474450623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637274019781912008
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-2602392549402818047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637275203520087770
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-2091663610622714429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637275203976339648
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
 --- !u!114 &-771757397833405152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17,7 +135,7 @@ MonoBehaviour:
   lastModified: 637273143997513209
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32,15 +150,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 6191200018586605200}
-  - {fileID: -771757397833405152}
+  - {fileID: -8585533443484259687}
   EditorEvents:
-  - {fileID: 3884818402905947477}
+  - {fileID: -8804811938728574126}
+  - {fileID: -6226987464273469587}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -771757397833405152}
+  - {fileID: -8585533443484259687}
   StringsBanks:
   - {fileID: 6191200018586605200}
-  stringsBankWriteTime: 637273143997553108
+  stringsBankWriteTime: 637275205999480825
   cacheVersion: 3
 --- !u!114 &3884818402905947477
 MonoBehaviour:
@@ -56,8 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/WaveSplash
   guid: 0a9fd59f3970434b9ddc8e68cae6ced7
-  Banks:
-  - {fileID: -771757397833405152}
+  Banks: []
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -79,9 +197,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637273143997553108
+  lastModified: 637275205999480825
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 736
+    Value: 818
   Exists: 1

@@ -48,28 +48,7 @@ public class CharacterSelectManager : MonoBehaviour
         
         foreach(Player p in ReInput.players.GetPlayers())
         {
-            if (p.GetButtonDown(RewiredConsts.Action.Start))
-            {
-                bool startBattle = true;
-                int playerReadyCount = 0;
-                foreach (UI_PlayerProfileSelector pps in playerProfileSelectors)
-                {
-                    if (pps.controllerID == -1) continue;
-                    if (pps.playerState != UI_PlayerProfileSelector.PlayerState.Selected)
-                    {
-                        startBattle = false;
-                        break;
-                    }
-                    else
-                    {
-                        playerReadyCount++;
-                    }
-                }
-                if (startBattle)
-                {
-                    if (playerReadyCount > 1) GameManager.Instance.ChangeScenes("Game");
-                }
-            }
+            
 
             // Player Joining
             if (p.GetButtonDown(RewiredConsts.Action.MenuSelect))
@@ -104,6 +83,29 @@ public class CharacterSelectManager : MonoBehaviour
                         GameManager.Instance.AddPlayer(p.id, firstEmptySlot.localPlayerData.shipType);
                         firstEmptySlot.localPlayerData = GameManager.Instance.GetPlayer(p.id);
                     }
+                }
+            }
+
+            if (p.GetButtonDown(RewiredConsts.Action.Start))
+            {
+                bool startBattle = true;
+                int playerReadyCount = 0;
+                foreach (UI_PlayerProfileSelector pps in playerProfileSelectors)
+                {
+                    if (pps.controllerID == -1) continue;
+                    if (pps.playerState != UI_PlayerProfileSelector.PlayerState.Selected)
+                    {
+                        startBattle = false;
+                        break;
+                    }
+                    else
+                    {
+                        playerReadyCount++;
+                    }
+                }
+                if (startBattle)
+                {
+                    if (playerReadyCount > 1) GameManager.Instance.ChangeScenes("Game");
                 }
             }
 

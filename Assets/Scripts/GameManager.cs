@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviour
     public PlayerController shipPrefab;
     public ShipType[] shipTypes;
 
-    float spawnTime = 0f;
-    int shipCount = 0;
+    
     public PlayerData[] playersPlaying = new PlayerData[4];
     public List<int> shipsOccupied = new List<int>();
+
+    public bool debugOpen = false;
 
     [Header("Scene Changing")]
     public ScreenTransition screenTransition;
@@ -32,9 +33,6 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
 
-        
-
-        spawnTime = Time.time + 0.5f;
 
         //if (shipsOccupied.Count <= 0)
         //{
@@ -45,11 +43,7 @@ public class GameManager : MonoBehaviour
         //}
     }
 
-    private void OnLevelWasLoaded(int level)
-    {
-        shipCount = 0;
-        spawnTime = Time.time + 0.5f;
-    }
+    
 
     private void Update()
     {
@@ -59,49 +53,15 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ChangeScenes("Player Select");
+            if (SceneManager.GetActiveScene().name != "Player Select") 
+                ChangeScenes("Player Select");
         }
-
-        // GAMEPLAY SPAWNING CODE
-        List<PlayerData> finalPlayers = new List<PlayerData>();
-        foreach(PlayerData pd in playersPlaying)
+        // Debug menu toggle
+        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (pd != null)
-            {
-                finalPlayers.Add(pd);
-            }
+            debugOpen = !debugOpen;
         }
-        if (SpawnPoint.spawnPoints.Count > 0 && shipCount < finalPlayers.Count)
-        {
-            
-            if (Time.time >= spawnTime)
-            {
-                // Pick a random spawn point
-                SpawnPoint point = SpawnPoint.spawnPoints[Random.Range(0, SpawnPoint.spawnPoints.Count)];
-
-                // Remove spawn point so it isn't used again
-                SpawnPoint.spawnPoints.Remove(point);
-
-                // Spawn a player ship at spawn point
-                if (point != null)
-                {
-                    PlayerController playerShip = Instantiate(shipPrefab, point.transform.position, point.transform.rotation);
-
-                    // Set ship variables
-                    // Set the player data
-                    playerShip.playerData = finalPlayers[shipCount];
-
-                    // Spawn poof particle
-                    Object poof = Resources.Load("Poof Particle");
-                    Instantiate(poof, point.transform.position, Quaternion.identity);
-
-                    // Increment the shipCount variable
-                    shipCount++;
-
-                    spawnTime = Time.time + 0.5f;
-                }
-            }
-        }
+        
 
     }
 
