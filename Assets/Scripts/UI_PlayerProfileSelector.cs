@@ -28,6 +28,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     public GameManager.PlayerData localPlayerData = new GameManager.PlayerData(-1, -1, 0);
 
     private Player p;
+    private CharacterSelectManager characterSelectManager;
 
     private LTDescr signScaleTween;
     
@@ -52,7 +53,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     {
         nameSignImage.LeanScaleY(0, 0f);
         tinyShipImage.LeanScaleX(0, 0f);
-
+        characterSelectManager = GetComponentInParent<CharacterSelectManager>();
         UpdateData();
     }
 

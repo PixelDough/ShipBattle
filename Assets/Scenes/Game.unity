@@ -595,7 +595,7 @@ MonoBehaviour:
   m_YDamping: 1
   m_ZDamping: 1
   m_ScreenX: 0.5
-  m_ScreenY: 0.5
+  m_ScreenY: 0.572
   m_CameraDistance: 50
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
@@ -2664,7 +2664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ListenerNumber: -1
+  ListenerNumber: 0
 --- !u!20 &1666993425
 Camera:
   m_ObjectHideFlags: 0

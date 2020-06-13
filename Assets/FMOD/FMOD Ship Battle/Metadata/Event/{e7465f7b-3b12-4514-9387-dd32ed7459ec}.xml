@@ -82,6 +82,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{a0558eed-e85b-4af0-9614-eb171fd2d9bc}">
+		<property name="volume">
+			<value>-8</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{12643cd4-d7dc-4ea3-9aa3-b512515f9a3e}</destination>
 		</relationship>
@@ -103,7 +106,7 @@
 			<value>true</value>
 		</property>
 		<property name="length">
-			<value>1.4729166666666667</value>
+			<value>0.90625</value>
 		</property>
 		<relationship name="modulators">
 			<destination>{0524345d-5f4a-4c5c-b06e-3f70b22e70bd}</destination>
@@ -134,7 +137,7 @@
 			<value>true</value>
 		</property>
 		<property name="length">
-			<value>2.0104414682539682</value>
+			<value>0.90625</value>
 		</property>
 		<property name="timelockedOffset">
 			<value>0.0078125</value>

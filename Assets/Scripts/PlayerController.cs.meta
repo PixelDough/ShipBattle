@@ -3,7 +3,13 @@ guid: 89512ee168f6bfe47bebd750be8a934e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cannonballPrefab: {fileID: 4463692303796416709, guid: 270bb40e4d7b65e429c4518092a510fa,
+      type: 3}
+  - powderKegPrefab: {instanceID: 0}
+  - shipModel: {instanceID: 0}
+  - poleModel: {instanceID: 0}
+  - shootSoundEmitter: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

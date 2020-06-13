@@ -116,8 +116,12 @@ public class GameplayManager : MonoBehaviour
 
         if (shipCountAlive == 1)
         {
-            zoomCamera.Follow = FindObjectOfType<PlayerController>().transform;
-            zoomCamera.Priority = 100;
+            Transform t = FindObjectOfType<PlayerController>().transform;
+            if (t)
+            {
+                zoomCamera.Follow = t;
+                zoomCamera.Priority = 100;
+            }
             Debug.Log("A player has won!");
 
             yield return new WaitForSeconds(5f);

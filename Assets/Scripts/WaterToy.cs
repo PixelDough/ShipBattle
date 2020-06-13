@@ -19,6 +19,8 @@ public class WaterToy : MonoBehaviour
     public LayerMask ignoreExplosionWhenCollidingLayers;
     public delegate void ExplodeEvent();
     public ExplodeEvent explodeEvent;
+    [FMODUnity.EventRef]
+    public string explodeSoundEvent;
     public bool combustable = false;
     public float combustionTime = 5f;
     private bool isOnFire = false;
@@ -298,6 +300,9 @@ public class WaterToy : MonoBehaviour
         if (explodeEvent != null)
             if (explodeEvent.GetInvocationList().Length > 0)
                 explodeEvent();
+
+        if (explodeSoundEvent != null) 
+            FMODUnity.RuntimeManager.PlayOneShot(explodeSoundEvent);
 
         FindObjectOfType<ScreenShake>().Shake();
         Instantiate(deathParticle, transform.position + Vector3.up * 0.2f, Quaternion.identity);

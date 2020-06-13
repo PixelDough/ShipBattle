@@ -99,6 +99,7 @@ MonoBehaviour:
   ignoreExplosionWhenCollidingLayers:
     serializedVersion: 2
     m_Bits: 1024
+  explodeSoundEvent: event:/SFX/SHIP/sfx_ship_explode
   combustable: 0
   combustionTime: 5
   deathParticle: {fileID: 0}

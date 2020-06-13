@@ -8,6 +8,10 @@ public class CharacterSelectManager : MonoBehaviour
 {
 
     public List<UI_PlayerProfileSelector> playerProfileSelectors = new List<UI_PlayerProfileSelector>();
+    public RectTransform allReadyBar;
+    public FMODUnity.StudioEventEmitter allReadySoundEmitter;
+
+    private bool allPlayersReady = false;
 
     private Player p;
 
@@ -40,6 +44,8 @@ public class CharacterSelectManager : MonoBehaviour
             //playerProfileSelectors[p.playerID].selectedShip = GameManager.Instance.shipTypes[p.shipType];
         }
 
+        allReadyBar.localScale = Vector2.zero;
+
     }
 
 
@@ -64,6 +70,7 @@ public class CharacterSelectManager : MonoBehaviour
                         {
                             pps.playerState = UI_PlayerProfileSelector.PlayerState.Selected;
                             GameManager.Instance.shipsOccupied.Add(pps.localPlayerData.shipType);
+                            CheckIfAllPlayersReady();
                         }
                         break;
                     }
@@ -88,25 +95,7 @@ public class CharacterSelectManager : MonoBehaviour
 
             if (p.GetButtonDown(RewiredConsts.Action.Start))
             {
-                bool startBattle = true;
-                int playerReadyCount = 0;
-                foreach (UI_PlayerProfileSelector pps in playerProfileSelectors)
-                {
-                    if (pps.controllerID == -1) continue;
-                    if (pps.playerState != UI_PlayerProfileSelector.PlayerState.Selected)
-                    {
-                        startBattle = false;
-                        break;
-                    }
-                    else
-                    {
-                        playerReadyCount++;
-                    }
-                }
-                if (startBattle)
-                {
-                    if (playerReadyCount > 1) GameManager.Instance.ChangeScenes("Game");
-                }
+                if (allPlayersReady) GameManager.Instance.ChangeScenes("Game");
             }
 
             // Player Quitting
@@ -120,6 +109,7 @@ public class CharacterSelectManager : MonoBehaviour
                         {
                             pps.playerState = UI_PlayerProfileSelector.PlayerState.Active;
                             GameManager.Instance.shipsOccupied.Remove(pps.localPlayerData.shipType);
+                            CheckIfAllPlayersReady();
                             break;
                         }
                         else
@@ -134,5 +124,58 @@ public class CharacterSelectManager : MonoBehaviour
             }
         }
     }
+
+
+    public bool CheckIfAllPlayersReady()
+    {
+        bool _allPlayersReady = true;
+        int playerReadyCount = 0;
+        foreach (UI_PlayerProfileSelector pps in playerProfileSelectors)
+        {
+            if (pps.controllerID == -1) continue;
+            if (pps.playerState != UI_PlayerProfileSelector.PlayerState.Selected)
+            {
+                _allPlayersReady = false;
+                break;
+            }
+            else
+            {
+                playerReadyCount++;
+            }
+        }
+
+        if (_allPlayersReady && playerReadyCount < 2)
+            _allPlayersReady = false;
+
+        if (allPlayersReady != _allPlayersReady)
+        {
+            switch(_allPlayersReady)
+            {
+                case true:
+                    //allReadyBar.gameObject.SetActive(true);
+
+                    //allReadyBar.transform.localScale = new Vector2(1.1f, 0.8f);
+
+                    allReadyBar.LeanCancel();
+                    allReadyBar.transform.LeanScaleX(1, .75f).setEaseOutElastic();
+                    allReadyBar.transform.LeanScaleY(1, 1f).setEaseOutElastic();
+
+                    allReadySoundEmitter.Play();
+
+                    break;
+                case false:
+                    allReadyBar.LeanCancel();
+                    allReadyBar.transform.LeanScaleX(0f, .1f);
+                    allReadyBar.transform.LeanScaleY(0f, .1f);
+                    //allReadyBar.gameObject.SetActive(false);
+                    break;
+            }
+        }
+
+        allPlayersReady = _allPlayersReady;
+        return allPlayersReady;
+
+    }
+
 
 }
