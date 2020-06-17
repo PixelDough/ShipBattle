@@ -4864,7 +4864,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4463692303796416709
 GameObject:
@@ -4918,7 +4918,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
-  m_CollisionDetection: 3
+  m_CollisionDetection: 1
 --- !u!114 &869504308203747861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4947,6 +4947,10 @@ MonoBehaviour:
   floatOnWater: 0
   maxHealth: 1
   explodeOnCollision: 1
+  ignoreExplosionWhenCollidingLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  explodeSoundEvent: 
   combustable: 0
   combustionTime: 5
   deathParticle: {fileID: 2595002262926658359, guid: fda533c2e4743a34491dc8a1a54178a3,

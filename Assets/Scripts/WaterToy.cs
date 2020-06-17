@@ -307,6 +307,7 @@ public class WaterToy : MonoBehaviour
         FindObjectOfType<ScreenShake>().Shake();
         Instantiate(deathParticle, transform.position + Vector3.up * 0.2f, Quaternion.identity);
         Destroy();
+        return;
     }
 
     public void Explode(float _time)

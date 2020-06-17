@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public WaterToy powderKegPrefab;
     public Transform shipModel;
     public Transform poleModel;
+    public Transform[] ammoIcons;
 
     [Header("Particles")]
     public ParticleSystem[] waterParticles;
@@ -25,6 +26,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
 
     WaterToy waterToy;
+
+    private int ammo = 3;
+    private float ammoReloadTime = 0;
 
 
     private void Start()
@@ -50,6 +54,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+
+        if (ammo < 3 && Time.time > ammoReloadTime)
+        {
+            ammo++;
+            ammoIcons[ammo-1].gameObject.SetActive(true);
+            ResetReloadTime();
+        }
 
         float ySpeed = rb.velocity.y;
 
@@ -84,23 +95,36 @@ public class PlayerController : MonoBehaviour
         rb.MoveRotation(Quaternion.Euler(0, rb.rotation.eulerAngles.y + (100 * player.GetAxis(RewiredConsts.Action.Turn)) * Time.deltaTime, 0));
         shipModel.localRotation = Quaternion.Lerp(shipModel.localRotation, Quaternion.Euler(shipModel.localRotation.x, shipModel.localRotation.y, -player.GetAxis(RewiredConsts.Action.Turn) * 15f), 0.1f);
 
+        // Shooting
         if (player.GetAxis(RewiredConsts.Action.Shoot) != 0 && player.GetAxisPrev(RewiredConsts.Action.Shoot) == 0)
         {
-            Vector3 cbDirection = transform.right;
-            if (player.GetAxis(RewiredConsts.Action.Shoot) < 0) cbDirection = -transform.right;
 
-            if (transform.eulerAngles.y < 270 && transform.eulerAngles.y > 90)
+            if (ammo > 0)
             {
-                //cbDirection = cbDirection == transform.right ? -transform.right : transform.right;
+                Vector3 cbDirection = transform.right;
+                if (player.GetAxis(RewiredConsts.Action.Shoot) < 0) cbDirection = -transform.right;
+
+                if (transform.eulerAngles.y < 270 && transform.eulerAngles.y > 90)
+                {
+                    //cbDirection = cbDirection == transform.right ? -transform.right : transform.right;
+                }
+
+                shootSoundEmitter.Play();
+
+                Cannonball cb = Instantiate(cannonballPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity).GetComponent<Cannonball>();
+                cb.GetComponent<WaterToy>().SetIgnoreCollisions(rb, true);
+                cb.GetComponent<WaterToy>().ResetIgnoreCollisions(rb, 1f);
+                cb.transform.LookAt(cb.transform.position + cbDirection);
+
+                ammoIcons[ammo-1].gameObject.SetActive(false);
+                ammo--;
+                ResetReloadTime();
+            }
+            else
+            {
+
             }
 
-            shootSoundEmitter.Play();
-
-            Cannonball cb = Instantiate(cannonballPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity).GetComponent<Cannonball>();
-            cb.GetComponent<WaterToy>().SetIgnoreCollisions(rb, true);
-            cb.GetComponent<WaterToy>().ResetIgnoreCollisions(rb, 1f);
-            cb.transform.LookAt(cb.transform.position + cbDirection);
-            
         }
 
         if (player.GetButtonDown(RewiredConsts.Action.Bomb))
@@ -113,6 +137,12 @@ public class PlayerController : MonoBehaviour
             //bomb.transform.LookAt(bomb.transform.position + Vector3.down);
         }
 
+    }
+
+
+    private void ResetReloadTime()
+    {
+        ammoReloadTime = Time.time + 1f;
     }
 
 

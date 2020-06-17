@@ -9,6 +9,7 @@ public class GameplayManager : MonoBehaviour
 {
 
     public CinemachineVirtualCamera zoomCamera;
+    public GameObject scoreBoardPrefab;
 
     float spawnTime = 0f;
     int shipCountAlive = 0;
@@ -116,17 +117,31 @@ public class GameplayManager : MonoBehaviour
 
         if (shipCountAlive == 1)
         {
-            Transform t = FindObjectOfType<PlayerController>().transform;
-            if (t)
+            PlayerController finalPlayer = FindObjectOfType<PlayerController>();
+
+            if (finalPlayer)
             {
+                Transform t = finalPlayer.transform;
                 zoomCamera.Follow = t;
                 zoomCamera.Priority = 100;
+
+
+                Debug.Log("A player has won!");
+
+                yield return new WaitForSeconds(3f);
+
+                UI_Score_ScoreBoard scoreBoard = Instantiate(scoreBoardPrefab).GetComponent<UI_Score_ScoreBoard>();
+
+                yield return new WaitForSeconds(1f);
+
+                finalPlayer.playerData.score += 1;
+                finalPlayer.playerData.score = Mathf.Clamp(finalPlayer.playerData.score, 0, GameManager.Instance.defaultGameRules.pointsToWin);
+                FindObjectOfType<UI_Score_ScoreBoard>().UpdateScores();
+
+                yield return new WaitForSeconds(2f);
+
+                GameManager.Instance.ChangeScenes(SceneManager.GetActiveScene().name);
             }
-            Debug.Log("A player has won!");
-
-            yield return new WaitForSeconds(5f);
-
-            GameManager.Instance.ChangeScenes(SceneManager.GetActiveScene().name);
         }
     }
 

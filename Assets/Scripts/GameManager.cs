@@ -12,12 +12,19 @@ public class GameManager : MonoBehaviour
 
     
     public PlayerData[] playersPlaying = new PlayerData[4];
+    public int playerCount = 0;
     public List<int> shipsOccupied = new List<int>();
 
     public bool debugOpen = false;
 
     [Header("Scene Changing")]
     public ScreenTransition screenTransition;
+
+    [Header("Game Rules")]
+    [Range(1, 10)]
+    public int pointsToWin = 5;
+
+    public GameRules defaultGameRules = new GameRules();
 
     public static GameManager Instance;
 
@@ -73,6 +80,7 @@ public class GameManager : MonoBehaviour
 
             PlayerData playerData = new PlayerData(_controllerID: _controllerID, _playerSlot: i, _shipType: _shipType);
             playersPlaying[i] = playerData;
+            playerCount++;
             return playerData;
 
         }
@@ -100,6 +108,7 @@ public class GameManager : MonoBehaviour
             if (playersPlaying[i].controllerID == _id)
             {
                 playersPlaying[i] = null;
+                playerCount--;
                 break;
             }
         }
@@ -116,6 +125,7 @@ public class GameManager : MonoBehaviour
         public int controllerID;
         public int playerSlot;
         public int shipType;
+        public int score = 0;
 
         public PlayerData()
         {
@@ -143,6 +153,17 @@ public class GameManager : MonoBehaviour
             controllerID = _controllerID;
             playerSlot = _playerSlot;
             shipType = _shipType;
+        }
+    }
+
+    public class GameRules
+    {
+        [Range(1, 10)]
+        public int pointsToWin = 3;
+
+        public GameRules()
+        {
+            
         }
     }
 

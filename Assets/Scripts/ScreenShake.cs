@@ -6,13 +6,13 @@ using Cinemachine;
 public class ScreenShake : MonoBehaviour
 {
 
-    CinemachineBrain brain;
+    CinemachineImpulseSource impulseSource;
 
     Vector3 cameraStartPos;
 
     private void Start()
     {
-        brain = FindObjectOfType<CinemachineBrain>();
+        impulseSource = FindObjectOfType<CinemachineImpulseSource>();
 
         cameraStartPos = transform.position;
     }
@@ -25,23 +25,20 @@ public class ScreenShake : MonoBehaviour
 
     public void Shake(float amplitude)
     {
-        StartCoroutine(_Shake(amplitude));
+        impulseSource.GenerateImpulse();
+        //StartCoroutine(_Shake(amplitude));
     }
 
 
     private IEnumerator _Shake(float amplitude)
     {
-        CinemachineVirtualCamera vc = brain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineVirtualCamera>();
-        CinemachineBasicMultiChannelPerlin vcp = vc.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
         //transform.position = cameraStartPos;
         //cameraStartPos = transform.position;
 
-        vcp.m_AmplitudeGain = amplitude;
+        impulseSource.GenerateImpulse();
 
-        yield return new WaitForSeconds(0.2f);
-
-        vcp.m_AmplitudeGain = 0f;
+        yield return null;
 
         //transform.position = cameraStartPos;
 

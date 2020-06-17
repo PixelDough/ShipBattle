@@ -11,6 +11,8 @@ public class CharacterSelectManager : MonoBehaviour
     public RectTransform allReadyBar;
     public FMODUnity.StudioEventEmitter allReadySoundEmitter;
 
+    public RectTransform optionsMenu;
+
     private bool allPlayersReady = false;
 
     private Player p;
@@ -54,7 +56,11 @@ public class CharacterSelectManager : MonoBehaviour
         
         foreach(Player p in ReInput.players.GetPlayers())
         {
-            
+
+            if (p.GetButtonDown(RewiredConsts.Action.Start))
+            {
+                if (allPlayersReady) GameManager.Instance.ChangeScenes("Game");
+            }
 
             // Player Joining
             if (p.GetButtonDown(RewiredConsts.Action.MenuSelect))
@@ -91,11 +97,6 @@ public class CharacterSelectManager : MonoBehaviour
                         firstEmptySlot.localPlayerData = GameManager.Instance.GetPlayer(p.id);
                     }
                 }
-            }
-
-            if (p.GetButtonDown(RewiredConsts.Action.Start))
-            {
-                if (allPlayersReady) GameManager.Instance.ChangeScenes("Game");
             }
 
             // Player Quitting
