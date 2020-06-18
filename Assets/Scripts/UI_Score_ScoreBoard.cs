@@ -16,7 +16,9 @@ public class UI_Score_ScoreBoard : MonoBehaviour
     private void Awake()
     {
         canvasGroup.alpha = 1;
-        transform.localScale = Vector3.zero;
+
+        Vector3 startPos = transform.position;
+        transform.position += Vector3.up * Mathf.Abs(GetComponent<RectTransform>().anchoredPosition.y);
 
         foreach (GameManager.PlayerData pd in GameManager.Instance.playersPlaying)
         {
@@ -33,8 +35,7 @@ public class UI_Score_ScoreBoard : MonoBehaviour
         gameObject.LeanCancel();
         //canvasGroup.LeanAlpha(1, 0.5f);
 
-        transform.LeanScaleX(1, .75f).setEaseOutElastic();
-        transform.LeanScaleY(1, 1f).setEaseOutElastic();
+        transform.LeanMoveY(startPos.y, 0.75f).setEaseOutBack();
 
         
 

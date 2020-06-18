@@ -59,7 +59,11 @@ public class CharacterSelectManager : MonoBehaviour
 
             if (p.GetButtonDown(RewiredConsts.Action.Start))
             {
-                if (allPlayersReady) GameManager.Instance.ChangeScenes("Game");
+                if (allPlayersReady)
+                {
+                    foreach (GameManager.PlayerData pd in GameManager.Instance.playersPlaying) if (pd != null) pd.score = 0;
+                    GameManager.Instance.ChangeScenes("Game");
+                }
             }
 
             // Player Joining

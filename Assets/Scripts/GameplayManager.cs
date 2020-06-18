@@ -10,6 +10,8 @@ public class GameplayManager : MonoBehaviour
 
     public CinemachineVirtualCamera zoomCamera;
     public GameObject scoreBoardPrefab;
+    public ParticleSystem[] winParticles;
+    public Letterbox letterbox;
 
     float spawnTime = 0f;
     int shipCountAlive = 0;
@@ -125,8 +127,13 @@ public class GameplayManager : MonoBehaviour
                 zoomCamera.Follow = t;
                 zoomCamera.Priority = 100;
 
+                letterbox.gameObject.SetActive(true);
 
                 Debug.Log("A player has won!");
+
+                yield return new WaitForSeconds(0.5f);
+                foreach (ParticleSystem ps in winParticles)
+                    ps.Play();
 
                 yield return new WaitForSeconds(3f);
 
@@ -139,6 +146,12 @@ public class GameplayManager : MonoBehaviour
                 FindObjectOfType<UI_Score_ScoreBoard>().UpdateScores();
 
                 yield return new WaitForSeconds(2f);
+
+                if (finalPlayer.playerData.score >= GameManager.Instance.defaultGameRules.pointsToWin)
+                {
+                    yield return new WaitForSeconds(2f);
+                    GameManager.Instance.ChangeScenes("Player Select");
+                }
 
                 GameManager.Instance.ChangeScenes(SceneManager.GetActiveScene().name);
             }

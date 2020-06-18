@@ -64,9 +64,14 @@ public class GameManager : MonoBehaviour
                 ChangeScenes("Player Select");
         }
         // Debug menu toggle
-        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.D))
         {
-            debugOpen = !debugOpen;
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                debugOpen = !debugOpen;
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+                AddPlayer(ReInput.players.SystemPlayer.id, 5);
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+                RemovePlayer(ReInput.players.SystemPlayer.id);
         }
         
 
@@ -99,13 +104,13 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
-    public void RemovePlayer(int _id)
+    public void RemovePlayer(int _controllerID)
     {
         for (int i = 0; i < playersPlaying.Length; i++)
         {
             if (playersPlaying[i] == null) continue;
 
-            if (playersPlaying[i].controllerID == _id)
+            if (playersPlaying[i].controllerID == _controllerID)
             {
                 playersPlaying[i] = null;
                 playerCount--;
@@ -116,6 +121,14 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScenes(string sceneName)
     {
+        if (FindObjectsOfType<ScreenTransition>().Length < 1)
+            Instantiate(screenTransition).targetSceneName = sceneName;
+    }
+
+    public void ChangeScenes(Object sceneAsset)
+    {
+        string sceneName = sceneAsset.name;
+
         if (FindObjectsOfType<ScreenTransition>().Length < 1)
             Instantiate(screenTransition).targetSceneName = sceneName;
     }
@@ -132,6 +145,7 @@ public class GameManager : MonoBehaviour
             controllerID = 0;
             playerSlot = 0;
             shipType = 0;
+            score = 0;
         }
 
         public PlayerData(int _controllerID)
@@ -139,6 +153,7 @@ public class GameManager : MonoBehaviour
             controllerID = _controllerID;
             playerSlot = _controllerID;
             shipType = _controllerID;
+            score = 0;
         }
 
         public PlayerData(int _controllerID, int _playerSlot)
@@ -146,6 +161,7 @@ public class GameManager : MonoBehaviour
             controllerID = _controllerID;
             playerSlot = _playerSlot;
             shipType = _controllerID;
+            score = 0;
         }
 
         public PlayerData(int _controllerID, int _playerSlot, int _shipType)
@@ -153,6 +169,7 @@ public class GameManager : MonoBehaviour
             controllerID = _controllerID;
             playerSlot = _playerSlot;
             shipType = _shipType;
+            score = 0;
         }
     }
 
