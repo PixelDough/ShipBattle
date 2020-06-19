@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{877af65d-151a-4d2b-abcc-8338df9ece09}">
+		<property name="assetPath">
+			<value>Music/Surf Album/Blue_Wave_Theory_-_07_-_Lava_Spout.ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>208.32653061224491</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e388aa48-d2ff-4a55-a449-e0345e0dd677}</destination>
+		</relationship>
+	</object>
+</objects>

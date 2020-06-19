@@ -41,9 +41,13 @@ public class CharacterSelectManager : MonoBehaviour
             if (p == null) continue;
             playerProfileSelectors[p.playerSlot].controllerID = p.controllerID;
             playerProfileSelectors[p.playerSlot].localPlayerData = p;
-            playerProfileSelectors[p.playerSlot].playerState = UI_PlayerProfileSelector.PlayerState.Selected;
+            //playerProfileSelectors[p.playerSlot].localPlayerData.shipType = p.shipType;
             //playerProfileSelectors[p.playerSlot].UpdateData();
-            //playerProfileSelectors[p.playerID].selectedShip = GameManager.Instance.shipTypes[p.shipType];
+            GameManager.Instance.shipsOccupied.Add(p.shipType);
+            playerProfileSelectors[p.playerSlot].playerState = UI_PlayerProfileSelector.PlayerState.Selected;
+            
+            
+            
         }
 
         allReadyBar.localScale = Vector2.zero;

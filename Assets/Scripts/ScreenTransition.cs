@@ -8,9 +8,12 @@ public class ScreenTransition : MonoBehaviour
 {
 
     public string targetSceneName = "";
+    public bool fadeMusic = true;
 
     [SerializeField] private RawImage image;
     [SerializeField] private float transitionTime = 0.75f;
+    [SerializeField] private FMODUnity.StudioGlobalParameterTrigger fadeOutTrigger;
+    [SerializeField] private FMODUnity.StudioGlobalParameterTrigger fadeInTrigger;
 
 
     private void Start()
@@ -27,6 +30,7 @@ public class ScreenTransition : MonoBehaviour
         {
             //Debug.Log("Level " + targetSceneName + " can be loaded.");
 
+            if (fadeMusic) fadeOutTrigger.TriggerParameters();
             LeanTween.alpha(image.rectTransform, 1f, transitionTime).setEaseOutCubic();
             while (image.color.a < 1f) yield return null;
 
@@ -35,6 +39,7 @@ public class ScreenTransition : MonoBehaviour
 
             while (!sync.isDone) yield return null;
 
+            if (fadeMusic) fadeInTrigger.TriggerParameters();
             LeanTween.alpha(image.rectTransform, 0f, transitionTime).setEaseInCubic();
             while (image.color.a > 0f) yield return null;
         }

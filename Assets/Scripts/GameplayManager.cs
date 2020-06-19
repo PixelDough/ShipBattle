@@ -12,6 +12,7 @@ public class GameplayManager : MonoBehaviour
     public GameObject scoreBoardPrefab;
     public ParticleSystem[] winParticles;
     public Letterbox letterbox;
+    public UI_Score_ScoreBoard scoreBoard;
 
     float spawnTime = 0f;
     int shipCountAlive = 0;
@@ -133,11 +134,15 @@ public class GameplayManager : MonoBehaviour
 
                 yield return new WaitForSeconds(0.5f);
                 foreach (ParticleSystem ps in winParticles)
-                    ps.Play();
+                {
+                    ps.gameObject.SetActive(true);
+                    yield return new WaitForSeconds(0.2f);
+                }
 
                 yield return new WaitForSeconds(3f);
 
-                UI_Score_ScoreBoard scoreBoard = Instantiate(scoreBoardPrefab).GetComponent<UI_Score_ScoreBoard>();
+                //UI_Score_ScoreBoard scoreBoard = Instantiate(scoreBoardPrefab).GetComponent<UI_Score_ScoreBoard>();
+                scoreBoard.gameObject.SetActive(true);
 
                 yield return new WaitForSeconds(1f);
 
@@ -153,7 +158,7 @@ public class GameplayManager : MonoBehaviour
                     GameManager.Instance.ChangeScenes("Player Select");
                 }
 
-                GameManager.Instance.ChangeScenes(SceneManager.GetActiveScene().name);
+                GameManager.Instance.ChangeScenes(SceneManager.GetActiveScene().name, false);
             }
         }
     }

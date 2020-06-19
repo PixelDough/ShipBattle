@@ -180,6 +180,8 @@ GameObject:
   - component: {fileID: 3910236179002341207}
   - component: {fileID: 791279891431487018}
   - component: {fileID: 3691277666412327793}
+  - component: {fileID: 5152640230854306359}
+  - component: {fileID: 5710242763645375665}
   m_Layer: 0
   m_Name: SceneTransition
   m_TagString: Untagged
@@ -217,6 +219,8 @@ MonoBehaviour:
   targetSceneName: 
   image: {fileID: 3421699028609604251}
   transitionTime: 0.75
+  fadeOutTrigger: {fileID: 5152640230854306359}
+  fadeInTrigger: {fileID: 5710242763645375665}
 --- !u!114 &3691277666412327793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,3 +244,35 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 0
   OverrideMaxDistance: 0
+--- !u!114 &5152640230854306359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3910236179002341206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  parameter: Music Fade
+  TriggerEvent: 0
+  value: 0
+--- !u!114 &5710242763645375665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3910236179002341206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  parameter: Music Fade
+  TriggerEvent: 0
+  value: 1

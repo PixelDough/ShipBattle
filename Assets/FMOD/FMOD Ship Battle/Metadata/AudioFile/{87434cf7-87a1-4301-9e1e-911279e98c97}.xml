@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{87434cf7-87a1-4301-9e1e-911279e98c97}">
+		<property name="assetPath">
+			<value>Music/Surf Album/Atomicos_-_02_-_Rad_Racer.ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>230.89632653061224</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e388aa48-d2ff-4a55-a449-e0345e0dd677}</destination>
+		</relationship>
+	</object>
+</objects>

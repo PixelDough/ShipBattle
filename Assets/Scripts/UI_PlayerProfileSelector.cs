@@ -53,7 +53,8 @@ public class UI_PlayerProfileSelector : MonoBehaviour
     {
         nameSignImage.LeanScaleY(0, 0f);
         tinyShipImage.LeanScaleX(0, 0f);
-        characterSelectManager = GetComponentInParent<CharacterSelectManager>();
+        characterSelectManager = FindObjectOfType<CharacterSelectManager>();
+        characterSelectManager.CheckIfAllPlayersReady();
         UpdateData();
     }
 
@@ -85,7 +86,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                 readyBar.LeanSize(new Vector2(readyBar.rect.size.x, 0), 0.25f).setEase(LeanTweenType.easeOutCubic);
 
                 tinyShipImage.LeanCancel();
-                tinyShipImage.LeanScale(new Vector3(0.5f, 0.5f, 1f), 0.1f);
+                tinyShipImage.LeanScale(new Vector3(1f, 1f, 1f), 0.1f);
 
                 inactiveCover.enabled = false;
                 break;
@@ -101,7 +102,7 @@ public class UI_PlayerProfileSelector : MonoBehaviour
                 readyBar.LeanSize(new Vector2(readyBar.rect.size.x, 100), 0.25f).setEase(LeanTweenType.easeInCubic);
 
                 tinyShipImage.LeanCancel();
-                tinyShipImage.LeanScale(new Vector3(0.75f, 0.75f, 1f), 0.1f);
+                tinyShipImage.LeanScale(new Vector3(1f, 1f, 1f), 0.1f);
 
                 inactiveCover.enabled = false;
                 break;

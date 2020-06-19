@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     [Header("Scene Changing")]
     public ScreenTransition screenTransition;
 
+    [Header("FMOD")]
+    public FMODUnity.StudioEventEmitter musicEventEmitter;
+
     [Header("Game Rules")]
     [Range(1, 10)]
     public int pointsToWin = 5;
@@ -31,8 +34,30 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(this.gameObject);
+        
+        if (Instance == null)
+        {
+            Instance = this;
+            musicEventEmitter.Play();
+        }
+        else
+        {
+            
+            if (Instance.musicEventEmitter.Event != musicEventEmitter.Event)
+            {
+                Instance.musicEventEmitter.Stop();
+
+                DestroyImmediate(Instance.musicEventEmitter.gameObject);
+
+                musicEventEmitter.transform.SetParent(Instance.transform);
+
+                Instance.musicEventEmitter = musicEventEmitter;
+
+                Instance.musicEventEmitter.Play();
+            }
+
+            Destroy(this.gameObject);
+        }
     }
 
 
@@ -48,6 +73,7 @@ public class GameManager : MonoBehaviour
         //        if (p.controllers.joystickCount > 0 || p.controllers.hasKeyboard) AddPlayer(p.id, p.id);
         //    }
         //}
+        
     }
 
     
@@ -56,7 +82,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ChangeScenes(SceneManager.GetActiveScene().name);
+            ChangeScenes(SceneManager.GetActiveScene().name, false);
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -76,6 +102,7 @@ public class GameManager : MonoBehaviour
         
 
     }
+
 
     public PlayerData AddPlayer(int _controllerID, int _shipType)
     {
@@ -119,18 +146,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ChangeScenes(string sceneName)
+    public void ChangeScenes(string sceneName, bool fadeMusic = true)
     {
         if (FindObjectsOfType<ScreenTransition>().Length < 1)
-            Instantiate(screenTransition).targetSceneName = sceneName;
+        {
+            ScreenTransition st = Instantiate(screenTransition);
+            st.targetSceneName = sceneName;
+            st.fadeMusic = fadeMusic;
+        }
     }
 
-    public void ChangeScenes(Object sceneAsset)
+    public void ChangeScenes(Object sceneAsset, bool fadeMusic = true)
     {
         string sceneName = sceneAsset.name;
 
-        if (FindObjectsOfType<ScreenTransition>().Length < 1)
-            Instantiate(screenTransition).targetSceneName = sceneName;
+        ChangeScenes(sceneName, fadeMusic);
     }
 
     public class PlayerData
