@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     public bool debugOpen = false;
 
+    [Space]
+    public ControllerIconMap[] controllerIconMaps;
+
     [Header("Scene Changing")]
     public ScreenTransition screenTransition;
 
@@ -163,6 +166,18 @@ public class GameManager : MonoBehaviour
         ChangeScenes(sceneName, fadeMusic);
     }
 
+
+    public ControllerIconMap FindIconMapByID(string hardwareID)
+    {
+        foreach(ControllerIconMap map in controllerIconMaps)
+        {
+            if (map.controllerGUID == hardwareID) return map;
+        }
+
+        return null;
+    }
+
+
     public class PlayerData
     {
         public int controllerID;
@@ -206,7 +221,7 @@ public class GameManager : MonoBehaviour
     public class GameRules
     {
         [Range(1, 10)]
-        public int pointsToWin = 3;
+        public int pointsToWin = 2;
 
         public GameRules()
         {

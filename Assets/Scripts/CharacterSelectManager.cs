@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class CharacterSelectManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class CharacterSelectManager : MonoBehaviour
     public FMODUnity.StudioEventEmitter allReadySoundEmitter;
 
     public RectTransform optionsMenu;
+
+    public UnityEvent returnEvent;
 
     private bool allPlayersReady = false;
 
@@ -110,10 +113,12 @@ public class CharacterSelectManager : MonoBehaviour
             // Player Quitting
             if (p.GetButtonDown(RewiredConsts.Action.MenuBack))
             {
+                bool isInGame = false;
                 foreach (UI_PlayerProfileSelector pps in playerProfileSelectors)
                 {
                     if (pps.controllerID == p.id)
                     {
+                        isInGame = true;
                         if (pps.playerState == UI_PlayerProfileSelector.PlayerState.Selected)
                         {
                             pps.playerState = UI_PlayerProfileSelector.PlayerState.Active;
@@ -130,6 +135,8 @@ public class CharacterSelectManager : MonoBehaviour
                         }
                     }
                 }
+
+                if (!isInGame) returnEvent.Invoke();
             }
         }
     }

@@ -33,7 +33,7 @@ MonoBehaviour:
   Path: event:/SFX/WATER/sfx_water_waveSplash
   guid: 0a9fd59f3970434b9ddc8e68cae6ced7
   Banks:
-  - {fileID: 2295336630917843865}
+  - {fileID: 1460658090429411640}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -56,7 +56,7 @@ MonoBehaviour:
   Path: event:/MUSIC/music_title
   guid: e91fed7bb2d59146afe7e1b898041d91
   Banks:
-  - {fileID: 2295336630917843865}
+  - {fileID: 1460658090429411640}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -79,6 +79,24 @@ MonoBehaviour:
   Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
   SubDir: 
   lastModified: 637275205999450899
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-7531441452056509189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637281754388034717
   LoadResult: 0
   FileSizes: []
   Exists: 0
@@ -115,7 +133,7 @@ MonoBehaviour:
   Path: event:/SFX/SHIP/sfx_ship_shoot
   guid: 7b5f46e7123b14459387dd32ed7459ec
   Banks:
-  - {fileID: 2295336630917843865}
+  - {fileID: 1460658090429411640}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -139,7 +157,7 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 1
-  Exists: 1
+  Exists: 0
 --- !u!114 &-5660010561719197737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +177,23 @@ MonoBehaviour:
   FileSizes: []
   Exists: 0
 --- !u!114 &-5325274253842434928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: Music Fade
+  m_EditorClassIdentifier: 
+  Name: Music Fade
+  Min: 0
+  Max: 1
+  Default: 1
+  Exists: 0
+--- !u!114 &-4568409434281544290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,7 +278,7 @@ MonoBehaviour:
   Path: event:/SFX/UI/sfx_ui_bellRing
   guid: 4d191acd50e83a4d87c4c05e5fdb5651
   Banks:
-  - {fileID: 2295336630917843865}
+  - {fileID: 1460658090429411640}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -287,6 +322,41 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &-1460612547042437741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: Music Fade
+  m_EditorClassIdentifier: 
+  Name: Music Fade
+  Min: 0
+  Max: 1
+  Default: 1
+  Exists: 0
+--- !u!114 &-1191675745861969631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637281760604673190
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
 --- !u!114 &-1021833551974267067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +375,29 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &-899305574888979442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/UI/sfx_ui_woodSwing
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/UI/sfx_ui_woodSwing
+  guid: 1f8443cc2a768a49815f3551fe258429
+  Banks:
+  - {fileID: 1460658090429411640}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 774
 --- !u!114 &-771757397833405152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,6 +416,40 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &-768990325095476738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: Radio State
+  m_EditorClassIdentifier: 
+  Name: Radio State
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &-599897693582099499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: Music Fade
+  m_EditorClassIdentifier: 
+  Name: Music Fade
+  Min: 0
+  Max: 1
+  Default: 1
+  Exists: 1
 --- !u!114 &-265356502848138720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,7 +465,7 @@ MonoBehaviour:
   Path: event:/SFX/ETC/sfx_etc_partyPopper
   guid: 8efe14bd25a52e46a56739ae96633e7d
   Banks:
-  - {fileID: 2295336630917843865}
+  - {fileID: 1460658090429411640}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -378,7 +505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 6191200018586605200}
-  - {fileID: 2295336630917843865}
+  - {fileID: 1460658090429411640}
   EditorEvents:
   - {fileID: -8804811938728574126}
   - {fileID: -6226987464273469587}
@@ -388,14 +515,15 @@ MonoBehaviour:
   - {fileID: -265356502848138720}
   - {fileID: -8716670966173997485}
   - {fileID: 7337968199502007237}
+  - {fileID: -899305574888979442}
   EditorParameters:
-  - {fileID: 6936573383163690813}
-  - {fileID: -5727438842352454635}
+  - {fileID: 3478091482647444291}
+  - {fileID: -599897693582099499}
   MasterBanks:
-  - {fileID: 2295336630917843865}
+  - {fileID: 1460658090429411640}
   StringsBanks:
   - {fileID: 6191200018586605200}
-  stringsBankWriteTime: 637281236341816785
+  stringsBankWriteTime: 637281763173260175
   cacheVersion: 3
 --- !u!114 &282406578316680178
 MonoBehaviour:
@@ -449,6 +577,76 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &542816456646828949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: Radio State
+  m_EditorClassIdentifier: 
+  Name: Radio State
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &983053769092799173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637281761016720290
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &1460658090429411640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637281763173230257
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &1642075779648742037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: Music Fade
+  m_EditorClassIdentifier: 
+  Name: Music Fade
+  Min: 0
+  Max: 1
+  Default: 1
+  Exists: 0
 --- !u!114 &2039743375401919945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,7 +682,7 @@ MonoBehaviour:
   lastModified: 637281236341786867
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &2813057926880459761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,6 +698,59 @@ MonoBehaviour:
   Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
   SubDir: 
   lastModified: 637275649483198474
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &2889446004592122139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637281761733523469
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &3478091482647444291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: Radio State
+  m_EditorClassIdentifier: 
+  Name: Radio State
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
+--- !u!114 &3608330293447457973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637281763041413298
   LoadResult: 0
   FileSizes: []
   Exists: 0
@@ -558,7 +809,7 @@ MonoBehaviour:
   Path: event:/SFX/SHIP/sfx_ship_explode
   guid: 6d214bd8001bca41b488b2055f7ad434
   Banks:
-  - {fileID: 2295336630917843865}
+  - {fileID: 1460658090429411640}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -617,7 +868,7 @@ MonoBehaviour:
   Path: event:/SFX/UI/sfx_ui_woosh
   guid: 447f5b70f40ce7458fd5a856de06b54d
   Banks:
-  - {fileID: 2295336630917843865}
+  - {fileID: 1460658090429411640}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -639,11 +890,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637281236341816785
+  lastModified: 637281763173260175
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1270
+    Value: 1320
   Exists: 1
 --- !u!114 &6447951172411096706
 MonoBehaviour:
@@ -715,7 +966,7 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &7171343586268553214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,7 +999,7 @@ MonoBehaviour:
   Path: event:/MUSIC/music_battle1
   guid: 0324949da959d24f841d5c4aaa2aa7e0
   Banks:
-  - {fileID: 2295336630917843865}
+  - {fileID: 1460658090429411640}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -775,6 +1026,41 @@ MonoBehaviour:
   FileSizes: []
   Exists: 0
 --- !u!114 &8308520355894815453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: Radio State
+  m_EditorClassIdentifier: 
+  Name: Radio State
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &8893992578585750008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/FMOD Ship Battle/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637281755299871134
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &9099772251016749041
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

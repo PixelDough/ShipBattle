@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 6085936914422850032}
   - component: {fileID: 6085936914422850039}
   - component: {fileID: 6085936914422850038}
+  - component: {fileID: 9019041612863253218}
   m_Layer: 5
   m_Name: Letterbox UI Panel
   m_TagString: Untagged
@@ -135,6 +136,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topBar: {fileID: 6085936914502759273}
   bottomBar: {fileID: 6085936915164727032}
+--- !u!223 &9019041612863253218
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6085936914422850033}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &6085936914502759274
 GameObject:
   m_ObjectHideFlags: 0

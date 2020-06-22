@@ -83,6 +83,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7318704974974298658}
+  - {fileID: 8213415388822220349}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -110,7 +111,61 @@ MonoBehaviour:
   playerCount: 0
   shipsOccupied: 
   debugOpen: 0
+  controllerIconMaps:
+  - {fileID: 11400000, guid: 6fec4680152326c49a9d21663df18ed0, type: 2}
+  - {fileID: 11400000, guid: 9c6e574624030884e9f30f7ec9b02251, type: 2}
+  - {fileID: 11400000, guid: 244a3d93cea5e42438eacdd34e2a25d5, type: 2}
+  - {fileID: 11400000, guid: da5b4713ae1b47d4ca6365b6e89e8199, type: 2}
+  - {fileID: 11400000, guid: edf2d0ca4a5526044ae975656a0123ec, type: 2}
   screenTransition: {fileID: 791279891431487018, guid: c96e095e05101ba409ae5941904448ac,
     type: 3}
   musicEventEmitter: {fileID: 2389222726985426634}
   pointsToWin: 5
+--- !u!1 &8648654125388384086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8213415388822220349}
+  - component: {fileID: 6538896435890845919}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8213415388822220349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8648654125388384086}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6754495356383527671}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6538896435890845919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8648654125388384086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 4e9ae0f5c5892cb4fb3f133dde66c39e, type: 2}

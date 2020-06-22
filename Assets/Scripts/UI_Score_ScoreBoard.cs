@@ -48,6 +48,7 @@ public class UI_Score_ScoreBoard : MonoBehaviour
         {
             foreach(GameManager.PlayerData data in GameManager.Instance.playersPlaying)
             {
+                if (data == null) continue;
                 if (pb.controllerID == data.controllerID)
                 {
                     if (data.score <= 0) break;

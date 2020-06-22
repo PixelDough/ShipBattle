@@ -1,0 +1,330 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa907c8cd635ba7448066f08bf0ac754, type: 3}
+  m_Name: Controller Icon Map X360 Xinput
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: cfb4dedced6b78a45ad2e484d15dc845, type: 3}
+    - {fileID: 21300000, guid: 4066a84c318eef54a81e0afedac8bdae, type: 3}
+    - {fileID: 21300000, guid: 391a35378a4a0ca468a06f386bc9408f, type: 3}
+    - {fileID: 21300000, guid: 9577cdea2a60ea946bac0fbef4c68c06, type: 3}
+    - {fileID: 21300000, guid: 45bf8d907da829346b0bf374519bfb69, type: 3}
+    - {fileID: 21300000, guid: 651aaaa6b30b1ca4d88f298ef97023d3, type: 3}
+    - {fileID: 21300000, guid: 7d6daefe1bbbce44e9ee025e4c080de3, type: 3}
+    - {fileID: 21300000, guid: 877ebf88b9937f4478ea2af458103edc, type: 3}
+    - {fileID: 21300000, guid: 7e286b4a309716c4b98c1fdbf1d44fb0, type: 3}
+    - {fileID: 21300000, guid: bf1ef4ade66065e45ab8eaa2563d8ef3, type: 3}
+    - {fileID: 21300000, guid: 70a6a10d1a534814ab7c5343a1dde8e8, type: 3}
+    - {fileID: 21300000, guid: cf54ebd86128c78479af07cc96b8b84d, type: 3}
+    - {fileID: 21300000, guid: 26ac4f929fdca89489bc4a7accd7848f, type: 3}
+    - {fileID: 21300000, guid: 1402bc7f7a92cc847b930b797afa04da, type: 3}
+    - {fileID: 21300000, guid: 423276f6416dddb42abbbafcd804d1cb, type: 3}
+    - {fileID: 21300000, guid: 60a93aaab3248d246bde432e6f0258bc, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: controllerElements
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[ControllerIconMap+ControllerElement,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 23
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 0
+    - Name: buttonSprite
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 1
+    - Name: buttonSprite
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 2
+    - Name: buttonSprite
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 3
+    - Name: buttonSprite
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 4
+    - Name: buttonSprite
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 5
+    - Name: buttonSprite
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 6
+    - Name: buttonSprite
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 7
+    - Name: buttonSprite
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 8
+    - Name: buttonSprite
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 9
+    - Name: buttonSprite
+      Entry: 10
+      Data: 7
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 10
+    - Name: buttonSprite
+      Entry: 10
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 11
+    - Name: buttonSprite
+      Entry: 10
+      Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 12
+    - Name: buttonSprite
+      Entry: 10
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 13
+    - Name: buttonSprite
+      Entry: 10
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 22
+    - Name: buttonSprite
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 14
+    - Name: buttonSprite
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 15
+    - Name: buttonSprite
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 16
+    - Name: buttonSprite
+      Entry: 10
+      Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 17
+    - Name: buttonSprite
+      Entry: 10
+      Data: 13
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 18
+    - Name: buttonSprite
+      Entry: 10
+      Data: 14
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 19
+    - Name: buttonSprite
+      Entry: 10
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 10
+    - Name: buttonSprite
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: ControllerIconMap+ControllerElement, Assembly-CSharp
+    - Name: elementIdentifierId
+      Entry: 3
+      Data: 21
+    - Name: buttonSprite
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  controllerName: XInput
+  controllerGUID: d74a350e-fe8b-4e9e-bbcd-efff16d34115

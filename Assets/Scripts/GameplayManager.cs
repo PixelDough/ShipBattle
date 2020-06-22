@@ -150,11 +150,21 @@ public class GameplayManager : MonoBehaviour
                 finalPlayer.playerData.score = Mathf.Clamp(finalPlayer.playerData.score, 0, GameManager.Instance.defaultGameRules.pointsToWin);
                 FindObjectOfType<UI_Score_ScoreBoard>().UpdateScores();
 
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(1f);
+
+                bool buttonPressed = false;
+
+                while(!buttonPressed)
+                {
+                    foreach(Player p in ReInput.players.AllPlayers)
+                    {
+                        if (p.GetButtonDown(RewiredConsts.Action.MenuSelect)) buttonPressed = true;
+                    }
+                    yield return null;
+                }
 
                 if (finalPlayer.playerData.score >= GameManager.Instance.defaultGameRules.pointsToWin)
                 {
-                    yield return new WaitForSeconds(2f);
                     GameManager.Instance.ChangeScenes("Player Select");
                 }
 

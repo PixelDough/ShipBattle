@@ -27,6 +27,9 @@ public class UI_PlayerProfileSelector : MonoBehaviour
 
     public GameManager.PlayerData localPlayerData = new GameManager.PlayerData(-1, -1, 0);
 
+    [Header("FMOD")]
+    public FMODUnity.StudioEventEmitter woodSwingEmitter;
+
     private Player p;
     private CharacterSelectManager characterSelectManager;
 
@@ -167,13 +170,14 @@ public class UI_PlayerProfileSelector : MonoBehaviour
             {
                 if (playerState == PlayerState.Active)
                 {
-                    int inputDirection = p.GetButtonDown(RewiredConsts.Action.MenuHorizontal) ? Mathf.RoundToInt(p.GetAxis(RewiredConsts.Action.MenuHorizontal)) : 0;
+                    int inputDirection = p.GetButtonDown(RewiredConsts.Action.MenuHorizontal) || p.GetNegativeButtonDown(RewiredConsts.Action.MenuHorizontal) ? Mathf.RoundToInt(p.GetAxis(RewiredConsts.Action.MenuHorizontal)) : 0;
 
                     if (inputDirection != 0)
                     {
                         if (true || localPlayerData.shipType != Mathf.Clamp(localPlayerData.shipType + inputDirection, 0, GameManager.Instance.shipTypes.Length - 1))
                         {
                             //nameSignSwingJoint.Rotate(Vector3.forward, 5 * inputDirection);
+                            woodSwingEmitter.Play();
                             nameSignSwingJoint.LeanCancel();
                             nameSignSwingJoint.LeanRotateZ(10 * inputDirection, 0.1f).setEaseOutCubic();
                             nameSignSwingJoint.LeanRotateZ(0, 2f).setEaseOutElastic().setDelay(0.1f);

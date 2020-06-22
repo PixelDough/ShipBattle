@@ -733,7 +733,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1847
 --- !u!1 &7529848317206908696
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,6 +807,51 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7529848316220705347}
     m_Modifications:
+    - target: {fileID: 841675160527913840, guid: 07eff21de03187d48b69b04351127a5c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776505511591892462, guid: 07eff21de03187d48b69b04351127a5c,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776505511591892462, guid: 07eff21de03187d48b69b04351127a5c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776505511591892462, guid: 07eff21de03187d48b69b04351127a5c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776505511591892462, guid: 07eff21de03187d48b69b04351127a5c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6350490366298778566, guid: 07eff21de03187d48b69b04351127a5c,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6350490366298778566, guid: 07eff21de03187d48b69b04351127a5c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6350490366298778566, guid: 07eff21de03187d48b69b04351127a5c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6350490366298778566, guid: 07eff21de03187d48b69b04351127a5c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7436443160795574329, guid: 07eff21de03187d48b69b04351127a5c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -841,6 +886,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Score Panel (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8128702877191986269, guid: 07eff21de03187d48b69b04351127a5c,
+        type: 3}
+      propertyPath: m_Name
+      value: Spacer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07eff21de03187d48b69b04351127a5c, type: 3}

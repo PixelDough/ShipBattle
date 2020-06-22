@@ -12,7 +12,7 @@ public class Letterbox : MonoBehaviour
     {
         topBar.position += Vector3.up * topBar.rect.height;
         bottomBar.position += Vector3.down * bottomBar.rect.height;
-
+        
         topBar.LeanMoveY(0, 2f).setEaseOutQuart();
         bottomBar.LeanMoveY(0, 2f).setEaseOutQuart();
     }
